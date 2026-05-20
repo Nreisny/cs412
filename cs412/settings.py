@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-bhfres@hk(1h5e#&09n*i-5j=gd7+^7nm48c(#v##k2am5@o1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cs-webapps.bu.edu',]
 
 
 # Application definition
@@ -116,8 +116,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = 'static/' # note: no leading slash!
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static"),
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL= "media/"  # note: no leading slash!
+
+import socket
+CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
+
+if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
+    STATIC_URL = '/username/static/'
+    MEDIA_URL = '/username/media/'
