@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-bhfres@hk(1h5e#&09n*i-5j=gd7+^7nm48c(#v##k2am5@o1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cs-webapps.bu.edu',]
+ALLOWED_HOSTS = [
+        '127.0.0.1',
+        'localhost',
+        'cs-webapps.bu.edu',
+    ]
 
 
 # Application definition
