@@ -1,0 +1,19 @@
+{% extends 'quotes/base.html' %} {% block content %}
+
+<h2>All Quotes</h2>
+
+<ul>
+  <li>{{ quote1 }}</li>
+  <li>{{ quote2 }}</li>
+  <li>{{ quote3 }}</li>
+</ul>
+
+<h2>All Images</h2>
+
+<img src="{{ image1 }}" alt="Einstein Image" />
+
+<img src="{{ image2 }}" alt="Einstein Image" />
+
+<img src="{{ image3 }}" alt="Einstein Image" />
+
+{% endblock %}

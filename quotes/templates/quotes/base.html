@@ -1,0 +1,33 @@
+{% load static %}
+
+<!doctype html>
+<html>
+  <head>
+    <title>Einstein Quote of the Day</title>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Einstein Quote of the Day</h1>
+    </header>
+
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="{% url 'quote' %}">Quote of the Day</a></li>
+          <li><a href="{% url 'show_all' %}">Show All</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+      </nav>
+
+      <main>{% block content %} {% endblock %}</main>
+    </div>
+  </body>
+  <footer>
+    <p>Page created by nreisny@bu.edu</p>
+
+    <p>Generated at: {{ current_time }}</p>
+  </footer>
+</html>
