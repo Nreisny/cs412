@@ -25,5 +25,5 @@ urlpatterns = [
     path("formdata/", include("formdata.urls")), # Goes to formdata App
     path("restaruant/", include("restaurant.urls")), # Goes to restaurant App
     path("blog/", include("blog.urls")), # Goes to blog App
-    path("mini_insta", include("mini_insta.urls")), # Goes to mini_insta App
+    path("mini_insta/", include("mini_insta.urls")), # Goes to mini_insta App
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
