@@ -1,0 +1,32 @@
+{% load static %}
+
+<!doctype html>
+<html>
+  <head>
+    <title>Restaurant</title>
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Tony's Pizza</h1>
+    </header>
+
+    <div class="container">
+      <nav>
+        <ul>
+          <li><a href="{% url 'main' %}">Main Page</a></li>
+          <li><a href="{% url 'order' %}">Order Page</a></li>
+        </ul>
+      </nav>
+
+      <main>{% block content %} {% endblock %}</main>
+    </div>
+  </body>
+  <footer>
+    <p>Page created by nreisny@bu.edu</p>
+
+    <p>Generated at: {{ current_time }}</p>
+  </footer>
+</html>
