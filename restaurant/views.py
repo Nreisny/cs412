@@ -24,6 +24,7 @@ def submit(request):
 
     # Checking if the Post Request is being used
     if request.POST:
+        print(request.POST)
         price = 10
         item1 = ""
         item2 = ""
@@ -31,22 +32,21 @@ def submit(request):
         item4 = ""
         special_sauce = ""
         # Reading data from the post Request
-        if (request.POST.get("item1", False) == "on"):
+        if (request.POST.get("item1", False) == "item1-sausage"):
             price += 7
-            item1 = "Tony's Big Sausage"
-        if (request.POST.get("item2", False) == "on"):
+            item1 = "Tony's Sausage"
+        if (request.POST.get("item2", False) == "item2-onion"):
             price += 2
             item2 = "Crying Tony's Onions"
-        if (request.POST.get("item3", False) == "on"):
+        if (request.POST.get("item3", False) == "item3-pepperoni"):
             price += 4
             item3 = "Spicyony Pepperoni"
-        if (request.POST.get("item4", False) == "on"):
+        if (request.POST.get("item4", False) == "item4-pig-feet"):
             price += 30
             item4 = "Tony's pig feet"
-        if (request.POST.get("special_sauce", False) == "on"):
+        if (request.POST.get("special_sauce", False) == "special-sauce"):
             price += 3
             special_sauce = "Spicy Barbecue"
-        print(price)
         time = datetime.now() + timedelta(minutes=random.randrange(30, 61))
         special_instruction = request.POST["special_instruction"]
         name = request.POST["name"]

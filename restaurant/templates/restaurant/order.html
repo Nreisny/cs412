@@ -10,18 +10,18 @@
   <form action="{% url 'submit' %}" method="POST">
     {% csrf_token %}
     <h2>Top of the Tony</h2>
-    <input type="checkbox" name="item1" value="False" />
-    <label for="item1"> Tony's Big Sausage 7$</label><br />
-    <input type="checkbox" name="item2" value="False" />
+    <input type="checkbox" name="item1" value="item1-sausage" />
+    <label for="item1"> Tony's Sausage 7$</label><br />
+    <input type="checkbox" name="item2" value="item2-onion" />
     <label for="item2"> Crying Tony's Onions 2$</label><br />
-    <input type="checkbox" name="item3" value="False" />
+    <input type="checkbox" name="item3" value="item3-pepperoni" />
     <label for="item3"> Spicyony Pepperoni 4$</label><br />
-    <input type="checkbox" name="item4" value="False" />
+    <input type="checkbox" name="item4" value="item4-pig-feet" />
     <label for="item4"> Tony's pig feet 30$</label><br />
     <br />
 
     <h2>Tony's Daily Special Sauce</h2>
-    <input type="checkbox" name="special_sauce" value="False" />
+    <input type="checkbox" name="special_sauce" value="special-sauce" />
     <label for="special_sauce">Spicy Barbecue</label><br />
 
     <h2>Special Instructions</h2>
