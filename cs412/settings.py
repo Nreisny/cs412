@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'quotes', # New app added
-    'formdata', # New app added
-    'restaurant', # New app added
+    'quotes', # New HW app added
+    'formdata', # New app example added
+    'restaurant', # New HW app added
+    'blog', # New example app added
+    'mini_insta', # New HW app added
 ]
 
 MIDDLEWARE = [
