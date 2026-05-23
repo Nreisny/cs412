@@ -1,7 +1,21 @@
+<!--AI helped with making the website nicer by adding a small intro area and an order button-->
+
 {% extends 'restaurant/base.html' %} {% block content %}
 
-<div>
-  <h1>Welcome</h1>
-  <img src="{{ image }}" alt="Restaurant" />
-</div>
+<section class="hero">
+  <div class="hero-text">
+    <h1>Fresh Pizza.<br />Made Daily.</h1>
+
+    <p>
+      Delicious handcrafted pizzas with fresh ingredients, homemade sauces, and
+      Tony's signature flavors.
+    </p>
+
+    <a href="{% url 'order' %}" class="hero-btn"> Order Now </a>
+  </div>
+
+  <div class="hero-image">
+    <img src="{{ image }}" alt="Restaurant" />
+  </div>
+</section>
 {% endblock %}

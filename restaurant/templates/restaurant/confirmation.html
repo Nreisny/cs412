@@ -1,3 +1,5 @@
+<!--AI helped with fixing the checkbox confirmations and with the spacing for the customer info and special instructions section -->
+
 {% extends 'restaurant/base.html' %} {% block content %}
 <div>
   <h1>Confirmation</h1>
@@ -5,23 +7,36 @@
   <p><strong>Your order will be ready at: {{time}}</strong></p>
 
   <h2>Your order is confirmed:</h2>
-  <p>{{item1}}</p>
-  <br />
-  <p>{{item2}}</p>
-  <br />
-  <p>{{item3}}</p>
-  <br />
-  <p>{{item4}}</p>
-  <br />
-  <p>{{special_sauce}}</p>
-  <br />
-  <h2>Special Instructions:</h2>
-  <p>{{special_instruction}}</p>
-  <p><strong>Total: ${{price}}</strong></p>
-  <h2>Customer information:</h2>
-  <p>{{name}}</p>
-  <p>{{phone}}</p>
-  <p>{{email}}</p>
+
+  <div class="confirmation-items">
+    {% if item1 %}
+    <div class="confirmation-item">{{ item1 }}</div>
+    {% endif %} {% if item2 %}
+    <div class="confirmation-item">{{ item2 }}</div>
+    {% endif %} {% if item3 %}
+    <div class="confirmation-item">{{ item3 }}</div>
+    {% endif %} {% if item4 %}
+    <div class="confirmation-item">{{ item4 }}</div>
+    {% endif %} {% if special_sauce %}
+    <div class="confirmation-item">{{ special_sauce }}</div>
+    {% endif %}
+  </div>
+  <div class="info-section">
+    <h2>Special Instructions</h2>
+
+    <div class="special-box">
+      <p>{{ special_instruction }}</p>
+
+      <div class="total-price">Total: ${{ price }}</div>
+    </div>
+  </div>
+  <h2>Customer Information</h2>
+
+  <div class="customer-info">
+    <p><strong>Name:</strong> {{name}}</p>
+    <p><strong>Phone:</strong> {{phone}}</p>
+    <p><strong>Email:</strong> {{email}}</p>
+  </div>
 </div>
 
 {% endblock %}

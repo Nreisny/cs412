@@ -1,3 +1,5 @@
+<!--AI helped fix the navbar-->
+
 {% load static %}
 
 <!doctype html>
@@ -5,22 +7,22 @@
   <head>
     <title>Restaurant</title>
 
-    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'style-restaurant.css' %}" />
   </head>
 
   <body>
-    <header>
-      <h1>Tony's Pizza</h1>
-    </header>
+    <nav class="topbar">
+      <div class="logo">
+        <h1>Tony's Pizza</h1>
+      </div>
 
-    <div class="container">
-      <nav>
-        <ul>
-          <li><a href="{% url 'main' %}">Main Page</a></li>
-          <li><a href="{% url 'order' %}">Order Page</a></li>
-        </ul>
-      </nav>
+      <ul class="nav-links">
+        <li><a href="{% url 'main' %}">Home</a></li>
+        <li><a href="{% url 'order' %}">Order Online</a></li>
+      </ul>
+    </nav>
 
+    <div class="page-content">
       <main>{% block content %} {% endblock %}</main>
     </div>
   </body>
