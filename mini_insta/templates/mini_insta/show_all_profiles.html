@@ -1,0 +1,9 @@
+{% extends 'mini_insta/base.html' %} {% block content %}
+<div>
+  {% for profile in profiles %}
+  <p>Username: {{ profile.username }}</p>
+  <p>Display Name: {{ profile.display_name }}</p>
+  <img src="{{ profile.profile_image_url }}" alt="" />
+  {% endfor %}
+</div>
+{% endblock %}
