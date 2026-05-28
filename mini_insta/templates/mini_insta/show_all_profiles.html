@@ -3,7 +3,9 @@
   {% for profile in profiles %}
   <p>Username: {{ profile.username }}</p>
   <p>Display Name: {{ profile.display_name }}</p>
+  <a href="{%url 'show_profile' profile.pk%}">
   <img src="{{ profile.profile_image_url }}" alt="" />
+  </a>
   {% endfor %}
 </div>
 {% endblock %}
