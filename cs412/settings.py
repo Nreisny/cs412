@@ -1,3 +1,7 @@
+# File: settings.py
+# Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+# Description: The settings area for cs412 projects
+
 """
 Django settings for cs412 project.
 
