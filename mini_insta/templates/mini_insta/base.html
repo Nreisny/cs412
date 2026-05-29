@@ -14,11 +14,10 @@ Description: Simple base template to display information
   </head>
 
   <body>
-    <main>{% block content %} {% endblock %}</main>
-
-    <footer>
-      <p>Page created by nreisny@bu.edu</p>
-      <p>Generated at: {% now "F j, Y g:i A" %}</p>
-    </footer>
+    <main>{% block content %}{% endblock %}</main>
   </body>
+  <footer>
+    <p>Page created by nreisny@bu.edu</p>
+    <p>Generated at: {% now "Y-m-d H:i:s"%}</p>
+  </footer>
 </html>
