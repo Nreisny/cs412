@@ -1,9 +1,26 @@
+<!-- AI was used to help for styling -->
+<!--
+File: template/show_all_profiles.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+Description: A tempalte to display all user photos and some information
+-->
+
 {% extends 'mini_insta/base.html' %} {% block content %}
-<div>
+
+<div class="profile-grid">
+  <!-- A for loop that displays some information about a profile from a given QuerySet -->
   {% for profile in profiles %}
-  <p>Username: {{ profile.username }}</p>
-  <p>Display Name: {{ profile.display_name }}</p>
-  <img src="{{ profile.profile_image_url }}" alt="" />
+  <div class="profile-card">
+    <a href="{% url 'show_profile' profile.pk %}">
+      <img src="{{ profile.profile_image_url }}" alt="" />
+    </a>
+
+    <div class="profile-info">
+      <p><strong>@{{ profile.username }}</strong></p>
+      <p>{{ profile.display_name }}</p>
+    </div>
+  </div>
   {% endfor %}
 </div>
+
 {% endblock %}

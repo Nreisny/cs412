@@ -1,3 +1,7 @@
+# File: views.py
+# Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+# Description: Defines views for displaying Mini Insta profiles.
+
 from django.shortcuts import render
 from .models import Profile
 from django.views.generic import ListView, DetailView

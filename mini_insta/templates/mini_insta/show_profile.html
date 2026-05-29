@@ -1,8 +1,44 @@
+<!-- AI was used to help for styling-->
+<!--
+File: tempalte/show_profile.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+Description: Simple base template to display information
+-->
+
 {% extends 'mini_insta/base.html' %} {% block content %}
-<div>
-  <p>Username: {{ profile.username }}</p>
-  <p>Display Name: {{ profile.display_name }}</p>
-  <p>Bio: {{ profile.bio_text }}</p>
-  <img src="{{ profile.profile_image_url }}" alt="" />
+
+<div class="profile-page">
+  <!-- Displaying all user Info from the given QuerySet -->
+  <div class="profile-image">
+    <img src="{{ profile.profile_image_url }}" alt="" />
+  </div>
+
+  <div class="profile-details">
+    <h2>{{ profile.display_name }}</h2>
+
+    <p class="username">@{{ profile.username }}</p>
+
+    <p class="bio">{{ profile.bio_text }}</p>
+
+    <div class="stats">
+      <div>
+        <strong>0</strong>
+        <span>Posts</span>
+      </div>
+
+      <div>
+        <strong>0</strong>
+        <span>Followers</span>
+      </div>
+
+      <div>
+        <strong>0</strong>
+        <span>Following</span>
+      </div>
+    </div>
+
+    <p><strong>Joined:</strong> {{ profile.join_date }}</p>
+  </div>
 </div>
+
 {% endblock %}
