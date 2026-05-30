@@ -9,5 +9,6 @@ from . import views
 # Adding paths to Mini_insta
 urlpatterns = [
  path(r"", views.ProfileListView.as_view(), name="show_all_profile"),
- path(r"profile/<int:pk>", views.ProfileDetailView.as_view(), name="show_profile")
+ path(r"profile/<int:pk>", views.ProfileDetailView.as_view(), name="show_profile"),
+ path(r"post/<int:pk>", views.PostDetailView.as_view(), name="show_post")
 ]

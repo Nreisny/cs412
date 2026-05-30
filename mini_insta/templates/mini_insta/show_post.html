@@ -1,0 +1,17 @@
+<!--
+File: tempalte/show_post.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+Description: Simple template that dispalys all photos for a 
+             given post along side its caption and timestamp
+-->
+
+{% extends 'mini_insta/base.html' %} {% block content %}
+<div class="post_container">
+  {% for photo in post.get_all_photos %}
+  <img src="{{photo.image_url}}" alt="No Image" />
+  {% endfor %}
+
+  <p>{{post.caption}}</p>
+  <p>{{post.timestamp}}</p>
+</div>
+{% endblock %}

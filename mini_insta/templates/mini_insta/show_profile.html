@@ -2,7 +2,8 @@
 <!--
 File: tempalte/show_profile.html
 Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
-Description: Simple base template to display information
+Description: Simple template that displays a profile along side their image, 
+             username, bio, and display_name
 -->
 
 {% extends 'mini_insta/base.html' %} {% block content %}
@@ -36,9 +37,22 @@ Description: Simple base template to display information
         <span>Following</span>
       </div>
     </div>
-
-    <p><strong>Joined:</strong> {{ profile.join_date }}</p>
   </div>
+  <div class="posts">
+    {% for post in profile.get_all_posts %}
+    <div>
+      {% if post.get_first_photo %}
+      <img src="{{ post.get_first_photo.image_url }}" alt="Post image" />
+      {% else %}
+      <img src="/static/images/no-image.jpg" alt="No image available" />
+      {% endif %}
+      <p>{{ post.caption }}</p>
+      <p>{{ post.timestamp }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  <p><strong>Joined:</strong> {{ profile.join_date }}</p>
 </div>
 
 {% endblock %}

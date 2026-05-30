@@ -19,7 +19,7 @@ class Profile(models.Model):
     
     def get_all_posts(self):
         '''Returns all posts that are connected to this Profile'''
-        posts = Post.objects.get(profile=self)
+        posts = Post.objects.filter(profile=self)
         return posts
 
     
@@ -35,7 +35,12 @@ class Post(models.Model):
     
     def get_all_photos(self):
         '''Returns all Photo's that are connected to this Post'''
-        photos = Photo.objects.get(post=self)
+        photos = Photo.objects.filter(post=self)
+        return photos
+
+    def get_first_photo(self):
+        '''Returns the first photo that is connected to this Post'''
+        photos = Photo.objects.first()
         return photos
 
 class Photo(models.Model):
