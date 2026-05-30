@@ -31,7 +31,7 @@ class Post(models.Model):
 
     def __str__(self):
         '''String representation of this Post model'''
-        return f"Profile: {self.profile}"
+        return f"Profile: {self.profile}, Caption: {self.caption}"
     
     def get_all_photos(self):
         '''Returns all Photo's that are connected to this Post'''
@@ -50,6 +50,26 @@ class Post(models.Model):
 class Photo(models.Model):
     '''Represents a Mini Insta user Photo'''
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
-    image_url = models.URLField(blank=False)
+    image_url = models.URLField(blank=True)
+    image_file = models.ImageField(blank=True)
     timestamp = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        '''String representation of this Photo Model'''
+        if self.image_url:
+            return self.image_url
+
+        elif self.image_file:
+            return str(self.image_file)
+
+        return "No image"
+    
+    def get_image_url(self):
+        '''Returns the URL for this iamge'''
+        if self.image_url:
+            return self.image_url
+        elif self.image_file:
+            return self.image_file.url
+        
+        return ""
 

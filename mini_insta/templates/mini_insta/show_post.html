@@ -8,7 +8,7 @@ Description: Simple template that dispalys all photos for a
 {% extends 'mini_insta/base.html' %} {% block content %}
 <div class="post_container">
   {% for photo in post.get_all_photos %}
-  <img src="{{photo.image_url}}" alt="No Image" />
+  <img src="{{photo.get_image_url}}" alt="No Image" />
   {% endfor %}
 
   <p>{{post.caption}}</p>

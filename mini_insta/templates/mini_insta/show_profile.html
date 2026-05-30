@@ -42,7 +42,7 @@ Description: Simple template that displays a profile along side their image,
     {% for post in profile.get_all_posts %}
     <div>
       {% if post.get_first_photo %}
-      <img src="{{ post.get_first_photo.image_url }}" alt="Post image" />
+      <img src="{{ post.get_first_photo.get_image_url }}" alt="Post image" />
       {% else %}
       <img src="/static/images/no-image.jpg" alt="No image available" />
       {% endif %}
