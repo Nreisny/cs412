@@ -1,3 +1,7 @@
+# File: forms.py
+# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+# Description: Defines the forms used by the mini insta application
+
 from django import forms
 from .models import *
 

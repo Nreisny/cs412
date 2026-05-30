@@ -1,11 +1,11 @@
 # File: views.py
-# Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
 # Description: Defines views for displaying Mini Insta profiles.
 
-from django.shortcuts import render
 from .models import Profile, Post, Photo
-from django.views.generic import ListView, DetailView
-# Create your views here.
+from django.views.generic import ListView, DetailView, CreateView
+from .forms import CreatePostForm
+
 class ProfileListView(ListView):
     '''Defines a class to view all profiles'''
 
@@ -24,3 +24,36 @@ class PostDetailView(DetailView):
     model = Post
     template_name = "mini_insta/show_post.html"
     context_object_name = "post"
+
+class CreatePostView(CreateView):
+    form_class = CreatePostForm
+    template_name = "mini_insta/create_post_form.html"
+
+    def get_context_data(self):
+        '''Return the dictionary of context varaibles for use in the template'''
+
+        context = super().get_context_data()
+
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+
+        context['profile'] = profile
+        return context
+    
+    def form_valid(self, form):
+        '''This method handles the form submission and the saving of it into the database'''
+
+        pk = self.kwargs['pk']
+        profile = Profile.objects.get(pk=pk)
+        form.instance.profile = profile
+        response = super().form_valid(form)
+
+        # We are creating the photo object here
+        image_url = self.request.POST['image_url']
+        Photo.objects.create(
+            post=self.object,
+            image_url=image_url
+        )
+
+        return response
+    

@@ -1,0 +1,24 @@
+<!--
+File: tempalte/create_post_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+Description: Simple template that displays a form for the user to add images
+             and to add a caption
+-->
+
+{% extends 'mini_insta/base.html' %} {% block content %}
+<div class="form-container">
+  <form action="{% url 'create_post' profile.pk%}" method="POST">
+    {% csrf_token %}
+    <table>
+      {{form.as_table}}
+      <label>Image Url: </label
+      ><input type="url" name="image_url" required />
+    </table>
+
+    <input type="submit" name="submit" value="Submit" />
+  </form>
+  <a href="{% url 'show_profile' profile.pk %}">
+    <button type="button">Cancel</button>
+  </a>
+</div>
+{% endblock %}

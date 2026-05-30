@@ -1,8 +1,9 @@
 # File: models.py
-# Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
-# Description: Defines the Profile model used by the Mini Insta application.
+# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+# Description: Defines the models used by the Mini Insta application.
 
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class Profile(models.Model):
@@ -21,7 +22,6 @@ class Profile(models.Model):
         '''Returns all posts that are connected to this Profile'''
         posts = Post.objects.filter(profile=self)
         return posts
-
     
 class Post(models.Model):
     '''Represents a Mini Insta user Post'''
@@ -40,8 +40,12 @@ class Post(models.Model):
 
     def get_first_photo(self):
         '''Returns the first photo that is connected to this Post'''
-        photos = Photo.objects.first()
+        photos = Photo.objects.filter(post=self).first()
         return photos
+    
+    def get_absolute_url(self):
+         '''Return the URL to display one instance of this model.''' 
+         return reverse('show_post', kwargs={'pk': self.pk})
 
 class Photo(models.Model):
     '''Represents a Mini Insta user Photo'''

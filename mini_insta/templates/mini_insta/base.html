@@ -15,6 +15,9 @@ Description: Simple base template to display information
 
   <body>
     <main>{% block content %}{% endblock %}</main>
+    {% if profile %}
+    <a href="{% url 'create_post' profile.pk %}"> Create Post </a>
+    {% endif %}
   </body>
   <footer>
     <p>Page created by nreisny@bu.edu</p>
