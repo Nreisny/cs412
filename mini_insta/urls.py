@@ -1,5 +1,5 @@
 # File: urls.py
-# Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
 # Description: URL patterns for the Mini Insta application.
 
 from django.urls import path
