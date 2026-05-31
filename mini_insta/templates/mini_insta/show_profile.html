@@ -8,10 +8,13 @@ Description: Simple template that displays a profile along side their image,
 
 {% extends 'mini_insta/base.html' %} {% block content %}
 
-<div class="profile-page">
-  <!-- Displaying all user Info from the given QuerySet -->
+<!-- Profile Header -->
+<div class="profile-header">
   <div class="profile-image">
-    <img src="{{ profile.profile_image_url }}" alt="" />
+    <img
+      src="{{ profile.profile_image_url }}"
+      alt="{{ profile.display_name }}"
+    />
   </div>
 
   <div class="profile-details">
@@ -23,7 +26,7 @@ Description: Simple template that displays a profile along side their image,
 
     <div class="stats">
       <div>
-        <strong>0</strong>
+        <strong>{{ profile.get_all_posts.count }}</strong>
         <span>Posts</span>
       </div>
 
@@ -37,22 +40,36 @@ Description: Simple template that displays a profile along side their image,
         <span>Following</span>
       </div>
     </div>
+
+    <p>
+      <strong>Joined:</strong>
+      {{ profile.join_date }}
+    </p>
   </div>
-  <div class="posts">
-    {% for post in profile.get_all_posts %}
-    <div>
+</div>
+
+<h2>Posts</h2>
+
+<div class="posts-grid">
+  {% for post in profile.get_all_posts %}
+
+  <div class="post-card">
+    <a href="{% url 'show_post' post.pk %}">
       {% if post.get_first_photo %}
       <img src="{{ post.get_first_photo.get_image_url }}" alt="Post image" />
       {% else %}
       <img src="/static/images/no-image.jpg" alt="No image available" />
       {% endif %}
+    </a>
+
+    <div class="post-content">
       <p>{{ post.caption }}</p>
-      <p>{{ post.timestamp }}</p>
+
+      <small> {{ post.timestamp }} </small>
     </div>
-    {% endfor %}
   </div>
 
-  <p><strong>Joined:</strong> {{ profile.join_date }}</p>
+  {% endfor %}
 </div>
 
 {% endblock %}

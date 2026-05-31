@@ -1,7 +1,7 @@
 <!-- AI was used to help for styling and the generated at portion. -->
 <!--
 File: tempalte/base.html
-Author: Nicholas Reis (nreisny@bu.edu) 5/28/26
+Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
 Description: Simple base template to display information
 -->
 
@@ -16,7 +16,9 @@ Description: Simple base template to display information
   <body>
     <main>{% block content %}{% endblock %}</main>
     {% if profile %}
-    <a href="{% url 'create_post' profile.pk %}"> Create Post </a>
+    <a class="create-post-btn" href="{% url 'create_post' profile.pk %}">
+      Create Post
+    </a>
     {% endif %}
   </body>
   <footer>
