@@ -1,10 +1,12 @@
 # File: views.py
-# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+# Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
 # Description: Defines views for displaying Mini Insta profiles.
 
-from .models import Profile, Post, Photo
-from django.views.generic import ListView, DetailView, CreateView
-from .forms import CreatePostForm
+from .models import Profile, Post, Photo, Follow
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class ProfileListView(ListView):
     '''Defines a class to view all profiles'''
@@ -58,3 +60,52 @@ class CreatePostView(CreateView):
 
         return response
     
+class UpdateProfileView(UpdateView):
+    '''A view to update a Profile and save it to the database'''
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = "mini_insta/update_profile_form.html"
+
+    def form_valid(self, form):
+        '''Handles the form submission to create a new Profile object'''
+        print(f'UpdateProfileView: form.cleaned_data={form.cleaned_data}')
+
+        return super().form_valid(form)
+    
+class DeletePostView(DeleteView):
+    '''A view to delete a post and remove it from the database'''
+    model = Post
+    template_name = "mini_insta/delete_post_form.html"
+    content_object_name = "post"
+
+    def get_success_url(self):
+        '''Rerouting the user to their profile page after deleting a post'''
+        pk = self.kwargs['pk']
+        post = Post.objects.get(pk=pk)
+        Profile = post.profile
+
+        return reverse("show_profile", kwargs={"pk": Profile.pk})
+    
+class UpdatePostView(UpdateView):
+    '''A view to udpdate a post and save it to the database'''
+    model = Post
+    form_class = UpdatePostForm
+    template_name = "mini_insta/update_post_form.html"
+
+    def form_valid(self, form):
+        '''Handles the form submission to create a new Profile object'''
+        print(f'UpdatePostForm: form.cleaned_data={form.cleaned_data}')
+
+        return super().form_valid(form)
+    
+class ShowFollowersDetailVew(DetailView):
+    '''Defines a class to view a single profiles followers list'''
+    model = Profile
+    template_name = "mini_insta/show_followers.html"
+    context_object_name = "followers"
+
+class ShowFollowingDetailView(DetailView):
+    '''Defines a class to view a single profiles following list'''
+    model = Profile
+    template_name = "mini_insta/show_following.html"
+    context_object_name = "following"

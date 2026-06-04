@@ -1,0 +1,31 @@
+<!--
+File: tempalte/update_profile_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
+Description: Simple template that displays a form for
+             the user to update their profile
+-->
+
+{% extends 'mini_insta/base.html' %}
+{% block content %}
+<h2>Update a Profile</h2>
+ 
+ 
+<form method = 'POST' enctype="multipart/form-data">
+{% csrf_token %}
+    <table>
+    {% for field in form %}
+    <tr>
+        <th>{{field.name}}</th>
+        <td>{{field}}</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <td></td>
+        <td>
+            <input type='submit' name = 'update_article' value='Update Article'>
+        </td>
+    </tr>
+    </table>
+</form>
+ 
+{% endblock %}

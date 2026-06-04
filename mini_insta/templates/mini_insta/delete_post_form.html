@@ -1,0 +1,25 @@
+<!--
+File: template/delete_post_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
+Description: Simple template that deletes a form
+             from a users profile
+-->
+{% extends 'mini_insta/base.html' %}
+ 
+{% block content %}
+<h3>Are you sure you want to delete this comment?</h3>
+<p>
+{{Post}}
+</p>
+
+<form method='POST'>
+    {% csrf_token %}
+    <input type='submit' value="Delete">
+</form>
+
+<a href="{%  url 'show_profile' post.profile.pk %}">
+    <button type="button" name="cancel" value="cancel">Cancel</button>
+</a>  
+ 
+ 
+{% endblock %}

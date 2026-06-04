@@ -1,0 +1,25 @@
+<!--
+File: template/show_following.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
+Description: A tempalte to display all following profiles
+-->
+
+{% extends 'mini_insta/base.html' %}
+
+{% block content %}
+
+<h1>{{ profile.display_name }} is Following</h1>
+
+{% for followed in profile.get_following %}
+    <div class="profile-image">
+        <img src="{{ followed.profile_image_url }}"
+             alt="{{ followed.display_name }}">
+    </div>
+
+    <div class="profile-details">
+        <h2>{{ followed.display_name }}</h2>
+        <p>{{ followed.bio_text }}</p>
+    </div>
+{% endfor %}
+
+{% endblock %}

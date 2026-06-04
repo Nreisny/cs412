@@ -13,5 +13,14 @@ Description: Simple template that dispalys all photos for a
 
   <p>{{post.caption}}</p>
   <p>{{post.timestamp}}</p>
+
+  <a href="{%  url 'delete_post' post.pk %}">
+    <button type="button" name="delete_post" value="Delete post">Delete Post</button>
+  </a>
+
+  <a href="{%  url 'update_post' post.pk %}">
+    <button type="button" name="update_post" value="Update Post">Update Post</button>
+  </a>
+  
 </div>
 {% endblock %}

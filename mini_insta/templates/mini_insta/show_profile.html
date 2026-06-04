@@ -29,16 +29,19 @@ Description: Simple template that displays a profile along side their image,
         <strong>{{ profile.get_all_posts.count }}</strong>
         <span>Posts</span>
       </div>
+      <a href="{% url 'show_followers' profile.pk %}">
+        <div>
+          <strong>{{ profile.get_num_followers }}</strong>
+          <span>Followers</span>
+        </div>
+      </a>
 
-      <div>
-        <strong>0</strong>
-        <span>Followers</span>
-      </div>
-
-      <div>
-        <strong>0</strong>
-        <span>Following</span>
-      </div>
+      <a href="{% url 'show_following' profile.pk %}">
+        <div>
+          <strong>{{ profile.get_num_following }}</strong>
+          <span>Following</span>
+        </div>
+      </a>
     </div>
 
     <p>
@@ -70,6 +73,12 @@ Description: Simple template that displays a profile along side their image,
   </div>
 
   {% endfor %}
+</div>
+
+<div>
+  <a href="{% url 'update_profile' profile.pk %}">
+    <button type="button", name="update_profile" value="update_profile">Update Profile</button>
+  </a>
 </div>
 
 {% endblock %}

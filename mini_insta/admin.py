@@ -3,8 +3,9 @@
 # Description: Registering our models to the admin
 
 from django.contrib import admin
-from .models import Profile, Post, Photo
+from .models import Profile, Post, Photo, Follow
 # Register your models here.
 admin.site.register(Profile)
 admin.site.register(Post)
 admin.site.register(Photo)
+admin.site.register(Follow)

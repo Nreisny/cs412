@@ -23,6 +23,38 @@ class Profile(models.Model):
         posts = Post.objects.filter(profile=self)
         return posts
     
+    def get_absolute_url(self):
+        '''Return the URL to display one instance of this model.'''    
+        return reverse('show_profile', kwargs={"pk": self.pk})
+    
+    def get_followers(self):
+        follower_list = []
+        followers = Follow.objects.filter(profile=self)
+        for follower in followers:
+            follower_list.append(follower.profile)
+        return follower_list
+    
+    def get_num_followers(self):
+        follower_list = []
+        followers = Follow.objects.filter(profile=self)
+        for follower in followers:
+            follower_list.append(follower.profile)
+        return len(follower_list)
+    
+    def get_following(self):
+        following_list = []
+        following = Follow.objects.filter(follower_profile=self)
+        for follow in following:
+            following_list.append(follow.profile)
+        return following_list
+    
+    def get_num_following(self):
+        following_list = []
+        following = Follow.objects.filter(follower_profile=self)
+        for follow in following:
+            following_list.append(follow.profile)
+        return len(following_list)
+        
 class Post(models.Model):
     '''Represents a Mini Insta user Post'''
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE)
@@ -72,4 +104,11 @@ class Photo(models.Model):
             return self.image_file.url
         
         return ""
+    
+class Follow(models.Model):
+    profile = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile")
+    follower_profile = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="follower_profile")
+    timestamp = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return f"{self.profile.username} follows {self.follower_profile.username}"

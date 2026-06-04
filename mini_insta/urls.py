@@ -1,5 +1,5 @@
 # File: urls.py
-# Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+# Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
 # Description: URL patterns for the Mini Insta application.
 
 from django.urls import path
@@ -11,5 +11,10 @@ urlpatterns = [
  path(r"", views.ProfileListView.as_view(), name="show_all_profile"),
  path(r"profile/<int:pk>", views.ProfileDetailView.as_view(), name="show_profile"),
  path(r"post/<int:pk>", views.PostDetailView.as_view(), name="show_post"),
- path(r"profile/<int:pk>/create_post", views.CreatePostView.as_view(), name="create_post")
+ path(r"profile/<int:pk>/create_post", views.CreatePostView.as_view(), name="create_post"),
+ path(r"profile/<int:pk>/update_profile", views.UpdateProfileView.as_view(), name="update_profile"),
+ path(r"delete_post/<int:pk>", views.DeletePostView.as_view(), name="delete_post"),
+ path(r"update_post/<int:pk>", views.UpdatePostView.as_view(), name="update_post"),
+ path(r"profile/<int:pk>/followers", views.ShowFollowersDetailVew.as_view(), name="show_followers"),
+ path(r"`profile/<int:pk>/following", views.ShowFollowingDetailView.as_view(), name="show_following"),
 ]
