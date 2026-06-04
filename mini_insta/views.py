@@ -6,8 +6,7 @@ from .models import Profile, Post, Photo, Follow
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
 from django.urls import reverse
-from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.shortcuts import render
 class ProfileListView(ListView):
     '''Defines a class to view all profiles'''
 
@@ -102,10 +101,50 @@ class ShowFollowersDetailVew(DetailView):
     '''Defines a class to view a single profiles followers list'''
     model = Profile
     template_name = "mini_insta/show_followers.html"
-    context_object_name = "followers"
+    context_object_name = "profile"
 
 class ShowFollowingDetailView(DetailView):
     '''Defines a class to view a single profiles following list'''
     model = Profile
     template_name = "mini_insta/show_following.html"
-    context_object_name = "following"
+    context_object_name = "profile"
+
+class ShowFeedView(DetailView):
+    '''Display the feed for a Profile'''
+
+    model = Profile
+    template_name = "mini_insta/show_feed.html"
+    context_object_name = "profile"
+
+class SearchView(ListView):
+    '''Search for Profiles and Posts'''
+
+    template_name = 'mini_insta/search_results.html'
+    context_object_name = 'posts'
+
+    def dispatch(self, request, *args, **kwargs):
+        '''Handle requests'''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        if 'query' not in self.request.GET:
+            return render(request,'mini_insta/search.html',{'profile': profile})
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        '''Return Posts matching the query'''
+        query = self.request.GET.get('query')
+        posts = Post.objects.filter(caption__contains=query)
+        return posts
+
+    def get_context_data(self, **kwargs):
+        '''Add context variables'''
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        query = self.request.GET.get('query')
+        profiles = Profile.objects.filter(username__contains=query) | Profile.objects.filter(display_name__contains=query) | Profile.objects.filter(bio_text__contains=query)
+
+        context['profile'] = profile
+        context['query'] = query
+        context['profiles'] = profiles
+
+        return context

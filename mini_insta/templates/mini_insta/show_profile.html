@@ -77,7 +77,15 @@ Description: Simple template that displays a profile along side their image,
 
 <div>
   <a href="{% url 'update_profile' profile.pk %}">
-    <button type="button", name="update_profile" value="update_profile">Update Profile</button>
+    <button type="button" , name="update_profile" value="update_profile">
+      Update Profile
+    </button>
+  </a>
+
+  <a href="{% url 'show_feed' profile.pk %}">
+    <button type="button" , name="show_feed" value="show_feed">
+      Show Feed
+    </button>
   </a>
 </div>
 

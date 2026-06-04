@@ -14,13 +14,39 @@ Description: Simple template that dispalys all photos for a
   <p>{{post.caption}}</p>
   <p>{{post.timestamp}}</p>
 
+  <hr />
+
+  <h3>Likes: {{ post.get_likes.count }}</h3>
+
+  {% for like in post.get_likes %}
+  <p>{{ like.profile.display_name }}</p>
+  {% empty %}
+  <p>No likes yet.</p>
+  {% endfor %}
+
+  <h3>Comments</h3>
+
+  {% for comment in post.get_all_comments %}
+  <div class="comment">
+    <strong>{{ comment.profile.display_name }}</strong>
+    <small>{{ comment.timestamp }}</small>
+
+    <p>{{ comment.text }}</p>
+  </div>
+  {% empty %}
+  <p>No comments yet.</p>
+  {% endfor %}
+
   <a href="{%  url 'delete_post' post.pk %}">
-    <button type="button" name="delete_post" value="Delete post">Delete Post</button>
+    <button type="button" name="delete_post" value="Delete post">
+      Delete Post
+    </button>
   </a>
 
   <a href="{%  url 'update_post' post.pk %}">
-    <button type="button" name="update_post" value="Update Post">Update Post</button>
+    <button type="button" name="update_post" value="Update Post">
+      Update Post
+    </button>
   </a>
-  
 </div>
 {% endblock %}

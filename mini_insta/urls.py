@@ -16,5 +16,7 @@ urlpatterns = [
  path(r"delete_post/<int:pk>", views.DeletePostView.as_view(), name="delete_post"),
  path(r"update_post/<int:pk>", views.UpdatePostView.as_view(), name="update_post"),
  path(r"profile/<int:pk>/followers", views.ShowFollowersDetailVew.as_view(), name="show_followers"),
- path(r"`profile/<int:pk>/following", views.ShowFollowingDetailView.as_view(), name="show_following"),
+ path(r"profile/<int:pk>/following", views.ShowFollowingDetailView.as_view(), name="show_following"),
+ path(r"profile/<int:pk>/feed", views.ShowFeedView.as_view(), name='show_feed'),
+ path(r"profile/<int:pk>/search", views.SearchView.as_view(), name='search'),
 ]

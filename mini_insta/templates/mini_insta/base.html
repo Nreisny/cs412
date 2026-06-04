@@ -19,6 +19,11 @@ Description: Simple base template to display information
     <a class="create-post-btn" href="{% url 'create_post' profile.pk %}">
       Create Post
     </a>
+    <a href="{% url 'search' profile.pk %}">
+      <button type="button" name="search_button" value="search_button">
+        Search
+      </button>
+    </a>
     {% endif %}
   </body>
   <footer>
