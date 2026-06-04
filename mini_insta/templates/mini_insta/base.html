@@ -14,6 +14,10 @@ Description: Simple base template to display information
   </head>
 
   <body>
+    <header class="site-header">
+      <h1>Mini Insta</h1>
+    </header>
+
     <main>{% block content %}{% endblock %}</main>
     {% if profile %}
     <a class="create-post-btn" href="{% url 'create_post' profile.pk %}">

@@ -28,6 +28,7 @@ class Profile(models.Model):
         return reverse('show_profile', kwargs={"pk": self.pk})
     
     def get_followers(self):
+        '''returns a Querylist of followers of the given profile'''
         follower_list = []
         followers = Follow.objects.filter(profile=self)
         for follower in followers:
@@ -35,6 +36,7 @@ class Profile(models.Model):
         return follower_list
     
     def get_num_followers(self):
+        '''Returns the number of followers of the given profile'''
         follower_list = []
         followers = Follow.objects.filter(profile=self)
         for follower in followers:
@@ -42,6 +44,7 @@ class Profile(models.Model):
         return len(follower_list)
     
     def get_following(self):
+        '''Returns a QueryList of profiles that is being followed'''
         following_list = []
         following = Follow.objects.filter(follower_profile=self)
         for follow in following:
@@ -49,6 +52,7 @@ class Profile(models.Model):
         return following_list
     
     def get_num_following(self):
+        '''Retruns the number of profiles that is being followed'''
         following_list = []
         following = Follow.objects.filter(follower_profile=self)
         for follow in following:
