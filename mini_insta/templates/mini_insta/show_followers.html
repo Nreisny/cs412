@@ -4,22 +4,36 @@ Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
 Description: A tempalte to display all followers profiles
 -->
 
-{% extends 'mini_insta/base.html' %}
-
-{% block content %}
+{% extends 'mini_insta/base.html' %} {% block content %}
 
 <h1>{{ profile.display_name }}'s Followers</h1>
 
-{% for follower in profile.get_followers %}
-    <div class="profile-image">
-        <img src="{{ follower.profile_image_url }}"
-             alt="{{ follower.display_name }}">
-    </div>
+<div class="profile-grid">
+  <!-- Showing followers information as well as a clickable button to go to their accounts -->
+  {% for follower in profile.get_followers %}
 
-    <div class="profile-details">
-        <h2>{{ follower.display_name }}</h2>
-        <p>{{ follower.bio_text }}</p>
+  <div class="profile-card">
+    <a href="{% url 'show_profile' follower.pk %}">
+      <img
+        src="{{ follower.profile_image_url }}"
+        alt="{{ follower.display_name }}"
+      />
+    </a>
+
+    <div class="profile-info">
+      <h2>{{ follower.display_name }}</h2>
+
+      <p class="username">@{{ follower.username }}</p>
+
+      <p class="bio">{{ follower.bio_text }}</p>
+
+      <a href="{% url 'show_profile' follower.pk %}">
+        <button>View Profile</button>
+      </a>
     </div>
-{% endfor %}
+  </div>
+
+  {% endfor %}
+</div>
 
 {% endblock %}

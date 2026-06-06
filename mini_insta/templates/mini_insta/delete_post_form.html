@@ -4,22 +4,17 @@ Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
 Description: Simple template that deletes a form
              from a users profile
 -->
-{% extends 'mini_insta/base.html' %}
- 
-{% block content %}
+{% extends 'mini_insta/base.html' %} {% block content %}
 <h3>Are you sure you want to delete this comment?</h3>
-<p>
-{{Post}}
-</p>
-
-<form method='POST'>
-    {% csrf_token %}
-    <input type='submit' value="Delete">
+<p>{{Post}}</p>
+<!-- A simpile form to delete a post that was made -->
+<form method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Delete" />
 </form>
-
+<!-- A link to go back to profile page -->
 <a href="{%  url 'show_profile' post.profile.pk %}">
-    <button type="button" name="cancel" value="cancel">Cancel</button>
-</a>  
- 
- 
+  <button type="button" name="cancel" value="cancel">Cancel</button>
+</a>
+
 {% endblock %}

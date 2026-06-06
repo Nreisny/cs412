@@ -16,6 +16,7 @@ Description: Simple template that dispalys all photos for a
 
   <hr />
 
+  <!-- Showing information about likes on this post -->
   <h3>Likes: {{ post.get_likes.count }}</h3>
 
   {% for like in post.get_likes %}
@@ -23,7 +24,7 @@ Description: Simple template that dispalys all photos for a
   {% empty %}
   <p>No likes yet.</p>
   {% endfor %}
-
+  <!-- Showing informatoin about comments made about this post -->
   <h3>Comments</h3>
 
   {% for comment in post.get_all_comments %}
@@ -36,16 +37,23 @@ Description: Simple template that dispalys all photos for a
   {% empty %}
   <p>No comments yet.</p>
   {% endfor %}
-
+  <!-- Goes to the delete post page -->
   <a href="{%  url 'delete_post' post.pk %}">
     <button type="button" name="delete_post" value="Delete post">
       Delete Post
     </button>
   </a>
-
+  <!-- Goes to the update post page -->
   <a href="{%  url 'update_post' post.pk %}">
     <button type="button" name="update_post" value="Update Post">
       Update Post
+    </button>
+  </a>
+
+  <!-- Goes back to showing user profile information -->
+  <a href="{% url 'show_profile' post.profile.pk %}">
+    <button type="button" name="back_to_profile" , value="Back To Profile">
+      Back To Profile
     </button>
   </a>
 </div>

@@ -4,22 +4,29 @@ Author: Nicholas Reis (nreisny@bu.edu) 6/2/26
 Description: A tempalte to display all following profiles
 -->
 
-{% extends 'mini_insta/base.html' %}
-
-{% block content %}
+{% extends 'mini_insta/base.html' %} {% block content %}
 
 <h1>{{ profile.display_name }} is Following</h1>
 
-{% for followed in profile.get_following %}
-    <div class="profile-image">
-        <img src="{{ followed.profile_image_url }}"
-             alt="{{ followed.display_name }}">
-    </div>
+<div class="follow-grid">
+  <!-- Displaying the profiles of those the user is following as well as a clickable button to go to their accounts-->
+  {% for follow in profile.get_following %}
 
-    <div class="profile-details">
-        <h2>{{ followed.display_name }}</h2>
-        <p>{{ followed.bio_text }}</p>
-    </div>
-{% endfor %}
+  <div class="follow-card">
+    <img src="{{ follow.profile_image_url }}" alt="{{ follow.display_name }}" />
+
+    <h2>{{ follow.display_name }}</h2>
+
+    <p class="username">@{{ follow.username }}</p>
+
+    <p class="bio">{{ follow.bio_text }}</p>
+
+    <a href="{% url 'show_profile' follow.pk %}">
+      <button>View Profile</button>
+    </a>
+  </div>
+
+  {% endfor %}
+</div>
 
 {% endblock %}

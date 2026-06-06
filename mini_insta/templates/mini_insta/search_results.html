@@ -5,7 +5,7 @@
 <p>Query: {{ query }}</p>
 
 <h2>Matching Profiles</h2>
-
+<!-- Showing som simple information about the profiles found -->
 {% for profile in profiles %}
 <p>
   <a href="{% url 'show_profile' profile.pk %}"> {{ profile.display_name }} </a>

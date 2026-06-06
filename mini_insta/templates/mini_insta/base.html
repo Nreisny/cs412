@@ -15,20 +15,10 @@ Description: Simple base template to display information
 
   <body>
     <header class="site-header">
-      <h1>Mini Insta</h1>
+      <a href="{% url 'show_all_profile' %}"> <h1>Mini Insta</h1> </a>
     </header>
 
     <main>{% block content %}{% endblock %}</main>
-    {% if profile %}
-    <a class="create-post-btn" href="{% url 'create_post' profile.pk %}">
-      Create Post
-    </a>
-    <a href="{% url 'search' profile.pk %}">
-      <button type="button" name="search_button" value="search_button">
-        Search
-      </button>
-    </a>
-    {% endif %}
   </body>
   <footer>
     <p>Page created by nreisny@bu.edu</p>

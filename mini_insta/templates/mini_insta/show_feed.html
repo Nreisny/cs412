@@ -1,38 +1,60 @@
+<!-- AI was used to help for styling-->
+<!--
+File: tempalte/show_feed.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+Description: Simple template that displays posts from a given search query
+             of those that the user is following
+-->
+
 {% extends 'mini_insta/base.html' %} {% block content %}
 
 <h1>{{ profile.display_name }}'s Feed</h1>
-
+<!-- Displays information about all posts gotten from the search query -->
 {% for post in profile.get_post_feed %}
 
-<hr />
+<div class="feed-card">
+  <div class="feed-profile">
+    <img
+      src="{{ post.profile.profile_image_url }}"
+      alt="{{ post.profile.display_name }}"
+    />
 
-<img src="{{ post.profile.profile_image_url }}" alt="Profile Image" />
+    <div>
+      <h3>{{ post.profile.display_name }}</h3>
 
-<h3>{{ post.profile.display_name }}</h3>
+      <p>@{{ post.profile.username }}</p>
+    </div>
+  </div>
 
-{% if post.get_first_photo %}
-<img src="{{ post.get_first_photo.get_image_url }}" alt="Post Image" />
-{% endif %}
+  {% if post.get_first_photo %}
+  <img src="{{ post.get_first_photo.get_image_url }}" alt="Post Image" />
+  {% endif %}
 
-<p>{{ post.caption }}</p>
+  <p>{{ post.caption }}</p>
 
-<p>{{ post.timestamp }}</p>
+  <p>
+    <small>{{ post.timestamp }}</small>
+  </p>
 
-<h4>Likes</h4>
+  <!-- Displaying information on likes of the post-->
+  <h4>Likes</h4>
 
-{% for like in post.get_likes %}
-<p>{{ like.profile.display_name }}</p>
+  {% for like in post.get_likes %}
+  <p>{{ like.profile.display_name }}</p>
+  {% empty %}
+  <p>No likes yet.</p>
+  {% endfor %}
+  <!-- Displaying information about comments of the Post -->
+  <h4>Comments</h4>
+
+  {% for comment in post.get_all_comments %}
+  <p><strong>{{ comment.profile.display_name }}</strong>: {{ comment.text }}</p>
+  {% empty %}
+  <p>No comments yet.</p>
+  {% endfor %} ```
+</div>
+
 {% empty %}
-<p>No likes yet.</p>
-{% endfor %}
-
-<h4>Comments</h4>
-
-{% for comment in post.get_all_comments %}
-<p>{{ comment.profile.display_name }}: {{ comment.text }}</p>
-{% empty %}
-<p>No comments yet.</p>
-{% endfor %} {% empty %}
 
 <p>No posts in feed.</p>
 

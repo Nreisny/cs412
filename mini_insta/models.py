@@ -126,11 +126,13 @@ class Photo(models.Model):
         return ""
     
 class Follow(models.Model):
+    '''Represetnts a Follow Profile'''
     profile = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="profile")
     follower_profile = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="follower_profile")
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        '''String representation of this Follow'''
         return f"{self.profile.username} follows {self.follower_profile.username}"
 
 class Comment(models.Model):
@@ -157,4 +159,5 @@ class Like(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
+        '''String represetnation of a like on a post'''
         return f"{self.profile.username} likes Post {self.post.pk}"

@@ -5,27 +5,26 @@ Description: Simple template that displays a form for
              the user to update their post
 -->
 
-{% extends 'mini_insta/base.html' %}
-{% block content %}
+{% extends 'mini_insta/base.html' %} {% block content %}
 <h2>Update a Profile</h2>
- 
- 
-<form method = 'POST' enctype="multipart/form-data">
-{% csrf_token %}
-    <table>
+
+<!-- Simpile form for the user to update a post -->
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
     {% for field in form %}
     <tr>
-        <th>{{field.name}}</th>
-        <td>{{field}}</td>
+      <th>{{field.name}}</th>
+      <td>{{field}}</td>
     </tr>
     {% endfor %}
     <tr>
-        <td></td>
-        <td>
-            <input type='submit' name = 'update_post' value='Update Post'>
-        </td>
+      <td></td>
+      <td>
+        <input type="submit" name="update_post" value="Update Post" />
+      </td>
     </tr>
-    </table>
+  </table>
 </form>
- 
+
 {% endblock %}

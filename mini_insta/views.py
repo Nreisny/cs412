@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import CreatePostForm, UpdateProfileForm, UpdatePostForm
 from django.urls import reverse
 from django.shortcuts import render
+
 class ProfileListView(ListView):
     '''Defines a class to view all profiles'''
 
@@ -27,6 +28,7 @@ class PostDetailView(DetailView):
     context_object_name = "post"
 
 class CreatePostView(CreateView):
+    '''A View that handles the creation of a Post'''
     form_class = CreatePostForm
     template_name = "mini_insta/create_post_form.html"
 
@@ -35,9 +37,11 @@ class CreatePostView(CreateView):
 
         context = super().get_context_data()
 
+        # Retrieving the Profile from the URL parameter
         pk = self.kwargs['pk']
         profile = Profile.objects.get(pk=pk)
 
+        # Adding the profile to the templates context
         context['profile'] = profile
         return context
     
@@ -59,6 +63,10 @@ class CreatePostView(CreateView):
 
         return response
     
+    def get_success_url(self):
+        '''This method sends the user back to their profile after verifying a form'''
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
 class UpdateProfileView(UpdateView):
     '''A view to update a Profile and save it to the database'''
     model = Profile
@@ -71,6 +79,10 @@ class UpdateProfileView(UpdateView):
 
         return super().form_valid(form)
     
+    def get_success_url(self):
+        '''Rerouting the user to show their profile after updating it'''
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
 class DeletePostView(DeleteView):
     '''A view to delete a post and remove it from the database'''
     model = Post
@@ -79,6 +91,8 @@ class DeletePostView(DeleteView):
 
     def get_success_url(self):
         '''Rerouting the user to their profile page after deleting a post'''
+
+        # Grabbing the private key and finding the profile associated it
         pk = self.kwargs['pk']
         post = Post.objects.get(pk=pk)
         Profile = post.profile
@@ -96,6 +110,10 @@ class UpdatePostView(UpdateView):
         print(f'UpdatePostForm: form.cleaned_data={form.cleaned_data}')
 
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        '''Rerouting the user after updating a post back to the post'''
+        return reverse('show_post', kwargs={'pk': self.kwargs['pk']})
     
 class ShowFollowersDetailVew(DetailView):
     '''Defines a class to view a single profiles followers list'''
@@ -126,7 +144,7 @@ class SearchView(ListView):
         '''Handle requests'''
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         if 'query' not in self.request.GET:
-            return render(request,'mini_insta/search.html',{'profile': profile})
+            return render(request,'mini_insta/search.html', {'profile': profile})
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -141,6 +159,7 @@ class SearchView(ListView):
         context = super().get_context_data(**kwargs)
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         query = self.request.GET.get('query')
+        # 
         profiles = Profile.objects.filter(username__contains=query) | Profile.objects.filter(display_name__contains=query) | Profile.objects.filter(bio_text__contains=query)
 
         context['profile'] = profile
