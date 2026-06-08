@@ -5,6 +5,21 @@
 from django import forms
 from .models import *
 
+class CreateProfileForm(forms.ModelForm):
+    '''Create a new Profile object'''
+
+    class Meta:
+        '''Associates this form with a model from our database'''
+
+        model = Profile
+
+        fields = [
+            "username",
+            "display_name",
+            "bio_text",
+            "profile_image_url"
+        ]
+
 class CreatePostForm(forms.ModelForm):
     '''A form to add a Post to the database'''
 

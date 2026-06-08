@@ -48,6 +48,18 @@ Description: Simple template that displays a profile along side their image,
       <strong>Joined:</strong>
       {{ profile.join_date }}
     </p>
+    <!-- Shows a follow or unfollow button based on if the user is currently following or not following -->
+    {% if request.user.is_authenticated and request.user != profile.user %} 
+      {% if is_following %}
+      <a href="{% url 'delete_follow' profile.pk %}">
+        <button type="button">Unfollow</button>
+      </a>
+      {% else %}
+      <a href="{% url 'follow' profile.pk %}">
+        <button type="button">Follow</button>
+      </a>
+      {% endif %} 
+    {% endif %}
   </div>
 </div>
 
@@ -77,20 +89,23 @@ Description: Simple template that displays a profile along side their image,
 </div>
 
 <div class="profile-actions">
-  <a href="{% url 'update_profile' profile.pk %}">
+  {% if request.user.is_authenticated and request.user == profile.user %}
+  <a href="{% url 'update_profile' %}">
     <button>Update Profile</button>
   </a>
 
-  <a href="{% url 'show_feed' profile.pk %}">
+  <a href="{% url 'show_feed' %}">
     <button>Show Feed</button>
   </a>
 
-  <a href="{% url 'search' profile.pk %}">
+  <a href="{% url 'search' %}">
     <button>Search</button>
   </a>
-  <a href="{% url 'create_post' profile.pk %}">
+
+  <a href="{% url 'create_post' %}">
     <button>Create Post</button>
   </a>
+  {% endif %}
 </div>
 
 {% endblock %}

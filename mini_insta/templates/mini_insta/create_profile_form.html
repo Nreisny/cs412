@@ -1,0 +1,24 @@
+<!--
+File: template/create_profile_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/8/26
+Description: Form used to create a User and Profile.
+-->
+
+{% extends 'mini_insta/base.html' %} {% block content %}
+
+<h1>Create Profile</h1>
+
+<form method="POST">
+  {% csrf_token %}
+
+  <h2>User Account Information</h2>
+  {{ user_form }}
+  <hr />
+
+  <h2>Profile Information</h2>
+  {{ form }}
+
+  <input type="submit" value="Create Profile" />
+</form>
+
+{% endblock %}

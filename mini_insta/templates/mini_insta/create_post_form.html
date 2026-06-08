@@ -10,7 +10,7 @@ Description: Simple template that displays a form for the user to add images
 <!-- A simpile form to have the user create a Post -->
 <div class="form-container">
   <form
-    action="{% url 'create_post' profile.pk%}"
+    action="{% url 'create_post'%}"
     method="POST"
     enctype="multipart/form-data"
   >

@@ -4,6 +4,7 @@
 
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Profile(models.Model):
@@ -13,6 +14,7 @@ class Profile(models.Model):
     profile_image_url = models.URLField(blank=True)
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         '''String representation of this model'''
@@ -67,6 +69,13 @@ class Profile(models.Model):
             followed_profiles.append(follow.profile)
         posts = Post.objects.filter(profile__in=followed_profiles).order_by('-timestamp')
         return posts
+    
+    def is_following(self, other_profile):
+        """Return True if this profile follows other_profile"""
+        return Follow.objects.filter(
+            follower_profile=self,
+            profile=other_profile
+        ).exists()
         
 class Post(models.Model):
     '''Represents a Mini Insta user Post'''
@@ -98,6 +107,13 @@ class Post(models.Model):
     def get_likes(self):
         '''Return all likes for this Post'''
         return Like.objects.filter(post=self)
+    
+    def is_liked_by(self, profile):
+        """Return True if profile likes this post"""
+        return Like.objects.filter(
+            profile=profile,
+            post=self
+        ).exists()
 
 class Photo(models.Model):
     '''Represents a Mini Insta user Photo'''

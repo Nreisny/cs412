@@ -1,0 +1,24 @@
+<!--
+File: templates/mini_insta/logged_out.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/8/26
+Description: Simple template to show a confirmation page
+             for succesful log out to user
+-->
+
+{% extends 'mini_insta/base.html' %} {% block content %}
+
+<h1>Successfully Logged Out</h1>
+
+<p>You have been successfully logged out of Mini Insta.</p>
+
+<a href="{% url 'login' %}">
+  <button type="button" name="login" value="Login">Log In Again</button>
+</a>
+
+<a href="{% url 'show_all_profile' %}">
+  <button type="button" name="show_profiles" value="Show Profiles">
+    Show All Profiles
+  </button>
+</a>
+
+{% endblock %}

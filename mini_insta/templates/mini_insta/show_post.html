@@ -18,6 +18,18 @@ Description: Simple template that dispalys all photos for a
 
   <!-- Showing information about likes on this post -->
   <h3>Likes: {{ post.get_likes.count }}</h3>
+  <!-- Showing like or unlike button based on if user is currently liking or not liking post -->
+  {% if request.user.is_authenticated and request.user != post.profile.user %}
+      {% if has_liked %}
+        <a href="{% url 'delete_like' post.pk %}">
+          <button type="button">Unlike</button>
+        </a>
+      {% else %}
+        <a href="{% url 'like' post.pk %}">
+          <button type="button">Like</button>
+        </a>
+      {% endif %}
+  {% endif %}
 
   {% for like in post.get_likes %}
   <p>{{ like.profile.display_name }}</p>
@@ -36,19 +48,20 @@ Description: Simple template that dispalys all photos for a
   </div>
   {% empty %}
   <p>No comments yet.</p>
-  {% endfor %}
+  {% endfor %} 
+  {% if request.user.is_authenticated and request.user == post.profile.user %}
+
   <!-- Goes to the delete post page -->
-  <a href="{%  url 'delete_post' post.pk %}">
-    <button type="button" name="delete_post" value="Delete post">
-      Delete Post
-    </button>
+  <a href="{% url 'delete_post' post.pk %}">
+    <button type="button">Delete Post</button>
   </a>
+
   <!-- Goes to the update post page -->
-  <a href="{%  url 'update_post' post.pk %}">
-    <button type="button" name="update_post" value="Update Post">
-      Update Post
-    </button>
+  <a href="{% url 'update_post' post.pk %}">
+    <button type="button">Update Post</button>
   </a>
+
+  {% endif %}
 
   <!-- Goes back to showing user profile information -->
   <a href="{% url 'show_profile' post.profile.pk %}">

@@ -1,0 +1,23 @@
+<!--
+File: template/login.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/7/26
+Description: Simple template that shows a login form
+-->
+
+{% extends 'mini_insta/base.html' %} {% block content %}
+
+<h1>Login</h1>
+
+<form method="POST" action="{% url 'login' %}">
+  {% csrf_token %} {{ form }}
+
+  <input type="submit" value="Login" />
+
+  {% if request.GET.next %}
+  <input type="hidden" name="next" value="{{ request.GET.next }}" />
+  {% else %}
+  <input type="hidden" name="next" value="{% url 'show_all_profile' %}" />
+  {% endif %}
+</form>
+
+{% endblock %}
