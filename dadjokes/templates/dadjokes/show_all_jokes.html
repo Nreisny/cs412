@@ -1,0 +1,17 @@
+{% extends 'dadjokes/base.html' %}
+
+{% block content %}
+
+<h2>All Jokes</h2>
+
+<ul>
+{% for joke in jokes %}
+    <li>
+        <a href="{% url 'joke' joke.pk %}">
+            Joke {{ joke.pk }}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+{% endblock %}

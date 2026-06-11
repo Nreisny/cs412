@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'restaurant', # New HW app added
     'blog', # New example app added
     'mini_insta', # New HW app added
+    'dadjokes', #NEW HW app added
 ]
 
 MIDDLEWARE = [
