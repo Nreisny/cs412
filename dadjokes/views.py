@@ -61,7 +61,7 @@ class RandomJokeDetailAPIVeiw(generics.RetrieveAPIView):
 
     def get_object(self):
         all_jokes = Joke.objects.all()
-        n = random.randint(0, len(all_jokes))
+        n = random.randint(0, len(all_jokes)-1)
         return all_jokes[n]
 
 class RandomPictureDetailView(generics.RetrieveAPIView):
@@ -69,6 +69,6 @@ class RandomPictureDetailView(generics.RetrieveAPIView):
 
     def get_object(self):
         all_pictures = Picture.objects.all()
-        n = random.randint(0, len(all_pictures))
+        n = random.randint(0, len(all_pictures)-1)
         return all_pictures[n]
 
