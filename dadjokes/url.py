@@ -8,4 +8,8 @@ urlpatterns = [
     path('joke/<int:pk>/', views.JokeDetailView.as_view(), name='joke'),
     path('pictures/', views.PictureListView.as_view(), name='pictures'),
     path('picture/<int:pk>/', views.PictureDetailView.as_view(), name='picture'),
+    path('api/jokes', views.JokeListAPIView.as_view()),
+    path('api/joke/<int:pk>', views.JokeDetailAPIView.as_view()),
+    path('api/pictures', views.PictureListAPIView.as_view()),
+    path('api/picture/<int:pk>', views.PictureDetailAPIView.as_view()),
 ]

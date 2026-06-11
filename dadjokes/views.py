@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from .models import Picture, Joke
 from django.views.generic import DetailView, ListView
+from rest_framework import generics
+from .serializers import *
 import random
 # Create your views here.
 
@@ -37,3 +39,19 @@ class PictureDetailView(DetailView):
     model = Picture
     template_name = 'dadjokes/show_picture.html'
     context_object_name = 'picture'
+
+class JokeListAPIView(generics.ListCreateAPIView):
+    queryset = Joke.objects.all()
+    serializer_class = JokeSerializer
+
+class JokeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Joke.objects.all()
+    serializer_class = JokeSerializer
+
+class PictureListAPIView(generics.ListCreateAPIView):
+    queryset = Picture.objects.all()
+    serializer_class = PictureSerializer
+
+class PictureDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Picture.objects.all()
+    serializer_class = PictureSerializer
