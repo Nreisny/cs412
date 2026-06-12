@@ -69,3 +69,20 @@ class PictureDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     '''Retrieve, update, or delete a specific picture.'''
     queryset = Picture.objects.all()
     serializer_class = PictureSerializer
+
+class RandomJokeDetailAPIVeiw(generics.RetrieveAPIView):
+    serializer_class = JokeSerializer
+
+    def get_object(self):
+        all_jokes = Joke.objects.all()
+        n = random.randint(0, len(all_jokes)-1)
+        return all_jokes[n]
+
+class RandomPictureDetailView(generics.RetrieveAPIView):
+    serializer_class = PictureSerializer
+
+    def get_object(self):
+        all_pictures = Picture.objects.all()
+        n = random.randint(0, len(all_pictures)-1)
+        return all_pictures[n]
+
