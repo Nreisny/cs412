@@ -1,19 +1,37 @@
+<!-- AI was used to help for styling and the generated at portion. -->
+<!--
+File: tempalte/base.html
+Author: Nicholas Reis (nreisny@bu.edu) 5/30/26
+Description: Simple base template to display information
+-->
+
+{% load static %}
+
 <html>
-    <head>
-        <title>Dad Jokes</title>
-    </head>
-    <body>
+  <head>
+    <title>Dad Jokes</title>
+    <link rel="stylesheet" href="{% static 'style-dadjokes.css' %}" />
+  </head>
 
+  <body>
     <h1>Dad Jokes App</h1>
-    
-    <a href="/">Home</a> |
-    <a href="/random/">Random</a> |
-    <a href="/jokes/">All Jokes</a> |
-    <a href="/pictures/">All Pictures</a>
+    <!-- A list of different pages to go to -->
+    <div class="nav-bar">
+      <a href="{% url 'home' %}">
+        <button>Home</button>
+      </a>
 
-    <hr>
+      <a href="{% url 'jokes' %}">
+        <button>Jokes</button>
+      </a>
 
-    {% block content %}
-    {% endblock %}
-    </body>
+      <a href="{% url 'pictures' %}">
+        <button>Pictures</button>
+      </a>
+    </div>
+
+    <hr />
+
+    {% block content %} {% endblock %}
+  </body>
 </html>

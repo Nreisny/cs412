@@ -1,18 +1,23 @@
-{% extends 'dadjokes/base.html' %}
+<!-- AI was used to help for styling and the generated at portion. -->
+<!--
+File: tempalte/show_random.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+Description: Simple base template to display a random joke
+             and picture from our database
+-->
 
-{% block content %}
+{% extends 'dadjokes/base.html' %} {% block content %}
 
+<!-- Showing the joke -->
 <h2>Random Joke</h2>
-
 <p>{{ joke.joke }}</p>
 <p>Submitted by {{ joke.name }}</p>
 
-<hr>
+<hr />
 
+<!-- Showing the picture -->
 <h2>Random Picture</h2>
-
-<img src="{{ picture.image_url }}" width="400">
-
+<img src="{{ picture.image_url }}" width="400" />
 <p>Submitted by {{ picture.name }}</p>
 
 {% endblock %}

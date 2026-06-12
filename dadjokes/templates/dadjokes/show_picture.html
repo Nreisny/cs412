@@ -1,0 +1,19 @@
+<!-- AI was used to help for styling and the generated at portion. -->
+<!--
+File: tempalte/show_picture.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+Description: Simple base template to display a picture from our database
+-->
+
+{% extends 'dadjokes/base.html' %} {% block content %}
+
+<!-- Showing picture -->
+<h2>Picture</h2>
+
+<img src="{{ picture.image_url }}" width="500" />
+
+<p>Contributor: {{ picture.name }}</p>
+
+<p>{{ picture.timestamp }}</p>
+
+{% endblock %}

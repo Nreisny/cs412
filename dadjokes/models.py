@@ -1,3 +1,8 @@
+# File: models.py
+# Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+# Description: Defines a model that represents a Joke and Picture
+#              object from our database
+
 from django.db import models
 
 # Create your models here.

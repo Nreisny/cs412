@@ -1,17 +1,19 @@
-{% extends 'dadjokes/base.html' %}
+<!-- AI was used to help for styling and the generated at portion. -->
+<!--
+File: tempalte/show_all_jokes.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+Description: Simple base template to display all jokes in database
+-->
 
-{% block content %}
+{% extends 'dadjokes/base.html' %} {% block content %}
 
 <h2>All Jokes</h2>
 
-<ul>
+<!-- Loops through all jokes in context to display joke and name-->
 {% for joke in jokes %}
-    <li>
-        <a href="{% url 'joke' joke.pk %}">
-            Joke {{ joke.pk }}
-        </a>
-    </li>
-{% endfor %}
-</ul>
-
-{% endblock %}
+<div class="joke-card">
+  <p>{{ joke.joke }}</p>
+  <p>by {{joke.name}}</p>
+  <hr />
+</div>
+{% endfor %} {% endblock %}

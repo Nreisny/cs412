@@ -1,0 +1,19 @@
+<!-- AI was used to help for styling and the generated at portion. -->
+<!--
+File: tempalte/show_all_pictures.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+Description: Simple base template to display all pictures in our database
+-->
+
+{% extends 'dadjokes/base.html' %} {% block content %}
+
+<h2>All Pictures</h2>
+
+<!-- goes through all pictures in context and displays image -->
+{% for picture in pictures %}
+<div class="picture-card">
+  <img src="{{ picture.image_url }}" alt="Picture {{ picture.pk }}" />
+  <p>from {{picture.name}}</p>
+  </hr>
+</div>
+{% endfor %} {% endblock %}

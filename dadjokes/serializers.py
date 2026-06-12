@@ -1,3 +1,7 @@
+# File: serializer.py
+# Author: Nicholas Reis (nreisny@bu.edu) 6/11/26
+# Description: Acts as a helper to serialize different models
+#              to either send out or create
 
 from rest_framework import serializers
 from .models import *
