@@ -1,0 +1,22 @@
+{% extends 'bookreview/base.html' %}
+
+{% block content %}
+
+<h1>{{ character.name }}</h1>
+
+<img src="{{ character.character_image_url }}" />
+
+<p>Book: {{ character.book.name }}</p>
+<p>Rating: {{ character.rating }}</p>
+
+<h2>Comments</h2>
+
+{% for comment in character.get_all_comments %}
+    <img src="{{ comment.profile.profile_image_url}}"/>
+    <h3>{{ comment.profile.username }}</h3>
+    <p>{{ comment.text }}</p>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+{% endblock %}

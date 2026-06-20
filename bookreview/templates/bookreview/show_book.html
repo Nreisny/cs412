@@ -1,0 +1,40 @@
+{% extends 'bookreview/base.html' %}
+
+{% block content %}
+
+<h1>{{ book.name }}</h1>
+
+<img src="{{ book.book_image_url }}" />
+
+<p>{{ book.synopsis }}</p>
+<p>Author: {{ book.author }}</p>
+<p>Rating: {{ book.rating }}</p>
+
+<h2>Characters</h2>
+
+{% for character in book.get_all_characters %}
+    <div>
+        <a href="{% url 'show_character' character.pk%}">
+            <img src="{{character.character_image_url}}"/>
+            <p>{{ character.name }}</p>
+        </a>
+    </div>
+{% empty %}
+    <p>No characters listed.</p>
+{% endfor %}
+
+{% for comment in book.get_all_comments %}
+    <div>
+        <div>
+            <a>
+                <img src="{{ comment.profile.profile_image_url }}" />
+                <h3>{{comment.profile.username}}</h3>
+            </a>
+        </div>
+        <p>{{comment.text}}</p>
+    </div>
+{% empty %}
+    <p>No comments</p>
+{% endfor %}
+
+{% endblock %}

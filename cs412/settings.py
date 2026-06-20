@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'blog', # New example app added
     'mini_insta', # New HW app added
     'dadjokes', #NEW HW app added
-    'rest_framework'
+    'rest_framework',
+    'bookreview' #New bookreview Finall app added
 ]
 
 MIDDLEWARE = [
