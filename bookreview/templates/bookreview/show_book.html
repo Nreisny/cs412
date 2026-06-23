@@ -1,40 +1,71 @@
-{% extends 'bookreview/base.html' %}
+<!-- Used AI generated content for formating purposes -->
+<!--
+File: tempalte/show_book.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple template that dispalys a books information and comments
+-->
 
-{% block content %}
+{% extends 'bookreview/base.html' %} {% block content %}
 
-<h1>{{ book.name }}</h1>
+<!-- Displaying simple information about the book -->
+<div class="book-detail-card">
+  <img src="{{ book.book_image_url }}" alt="{{ book.name }}" />
 
-<img src="{{ book.book_image_url }}" />
+  <div class="book-detail-info">
+    <h1>{{ book.name }}</h1>
 
-<p>{{ book.synopsis }}</p>
-<p>Author: {{ book.author }}</p>
-<p>Rating: {{ book.rating }}</p>
+    <p class="synopsis">{{ book.synopsis }}</p>
 
-<h2>Characters</h2>
+    <p class="author">Author: {{ book.author }}</p>
 
-{% for character in book.get_all_characters %}
-    <div>
-        <a href="{% url 'show_character' character.pk%}">
-            <img src="{{character.character_image_url}}"/>
-            <p>{{ character.name }}</p>
-        </a>
+    <p class="rating">Rating: {{ book.rating }}</p>
+  </div>
+</div>
+<!-- Displaying all the characters information related to this book -->
+<h2 class="section-title">Characters</h2>
+<div class="character-list">
+  {% for character in book.get_all_characters %}
+  <a class="character-card" href="{% url 'show_character' character.pk %}">
+    <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
+
+    <div class="character-info">
+      <h3>{{ character.name }}</h3>
     </div>
-{% empty %}
-    <p>No characters listed.</p>
-{% endfor %}
+  </a>
+  <!-- If there are no characters, displays no characters listed -->
+  {% empty %}
+  <p>No characters listed.</p>
+  {% endfor %}
+</div>
 
-{% for comment in book.get_all_comments %}
-    <div>
-        <div>
-            <a>
-                <img src="{{ comment.profile.profile_image_url }}" />
-                <h3>{{comment.profile.username}}</h3>
-            </a>
-        </div>
-        <p>{{comment.text}}</p>
+<h2 class="section-title">Reviews & Comments</h2>
+<!-- Displays all comments about this book -->
+<div class="comment-list">
+  {% for comment in book.get_all_comments %}
+  <a href="{% url 'show_profile' comment.profile.pk %}" class="comment-card">
+    <img
+      class="comment-avatar"
+      src="{{ comment.profile.profile_image_url }}"
+      alt="{{ comment.profile.username }}"
+    />
+
+    <div class="comment-content">
+      <h4>{{ comment.profile.username }}</h4>
+
+      <p>{{ comment.text }}</p>
+      <p class="rating-value">{{comment.rating}}</p>
     </div>
-{% empty %}
-    <p>No comments</p>
-{% endfor %}
+  </a>
+  <!-- If there are no comments, displays no comments -->
+  {% empty %}
+  <p>No comments</p>
+  {% endfor %}
+</div>
+<div class="action-bar">
+  <a href="{% url 'show_all_books' %}" class="action-btn"> Back </a>
 
+  <a href="{% url 'create_book_comment' book.pk %}" class="action-btn">
+    Add Review
+  </a>
+</div>
 {% endblock %}

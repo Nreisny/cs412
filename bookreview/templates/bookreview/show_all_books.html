@@ -1,15 +1,21 @@
-{% extends 'bookreview/base.html' %}
+<!-- Used AI generated content for formating purposes -->
+<!--
+File: tempalte/show_all_books.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple template that displays all books
+-->
 
-{% block content %}
+{% extends 'bookreview/base.html' %} {% block content %}
 <div class="book-grid">
-    {% for book in books %}
-        <a href="{% url 'show_book' book.pk %}" class="book-card">
-            <h2>{{ book.name }}</h2>
-            <img src="{{ book.book_image_url }}" />
+  <!-- Creating a link card that displays a books image, author, and rating for each book in a given queryset -->
+  {% for book in books %}
+  <a href="{% url 'show_book' book.pk %}" class="book-card">
+    <h2>{{ book.name }}</h2>
+    <img src="{{ book.book_image_url }}" />
 
-            <p class="author">Author: {{ book.author }}</p>
-            <p class="rating">Rating: {{ book.rating }}</p>
-        </a>
-    {% endfor %}
+    <p class="author">Author: {{ book.author }}</p>
+    <p class="rating">Rating: {{ book.rating }}</p>
+  </a>
+  {% endfor %}
 </div>
 {% endblock %}

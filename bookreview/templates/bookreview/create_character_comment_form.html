@@ -1,0 +1,35 @@
+<!--
+File: tempalte/create_character_comment_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple template that displays a 
+             form to create a character comment
+-->
+
+{% extends 'bookreview/base.html' %} {% block content %}
+<div class="review-form-wrapper">
+  <!-- Displays a simple POST form that displays the fields for creating a Character comment -->
+  <div class="review-form-card">
+    <h1>Leave a Character Review</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <table class="styled-form">
+        {{ form.as_table }}
+      </table>
+      <div class="form-actions">
+        <a
+          href="{% url 'show_character' character.pk %}"
+          class="submit-review-btn"
+        >
+          Cancel
+        </a>
+
+        <button type="submit" class="submit-review-btn submit-btn">
+          Submit Review
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

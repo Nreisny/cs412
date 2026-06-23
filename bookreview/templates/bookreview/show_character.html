@@ -1,0 +1,66 @@
+<!-- Used AI generated content for formating purposes -->
+<!--
+File: tempalte/show_character.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple tempalte to show all information of a character
+             and their reviews
+-->
+
+{% extends 'bookreview/base.html' %} {% block content %}
+
+<!-- Displaying basic information about the character and their image -->
+<div class="character-detail-card">
+  <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
+
+  <div class="character-detail-info">
+    <h1>{{ character.name }}</h1>
+
+    <p class="character-book">
+      Appears in:
+      <a href="{% url 'show_book' character.book.pk %}">
+        {{ character.book.name }}
+      </a>
+    </p>
+
+    <p class="character-rating">Rating: {{ character.rating }}</p>
+  </div>
+</div>
+
+<div class="comment-header">
+  <h2 class="section-title">Character Reviews</h2>
+</div>
+
+<div class="comment-list">
+  <!-- Displaying all comments about a user and basic information of the profile that wrote it -->
+  {% for comment in character.get_all_comments %}
+
+  <a class="comment-card" href="{% url 'show_profile' comment.profile.pk %}">
+    <img
+      class="comment-avatar"
+      src="{{ comment.profile.profile_image_url }}"
+      alt="{{ comment.profile.username }}"
+    />
+
+    <div class="comment-content">
+      <h4>{{ comment.profile.username }}</h4>
+
+      <p>{{ comment.text }}</p>
+
+      <p class="rating-value">{{ comment.rating }}</p>
+    </div>
+  </a>
+
+  {% empty %}
+
+  <p>No comments yet.</p>
+
+  {% endfor %}
+</div>
+
+<a
+  class="add-comment-btn"
+  href="{% url 'create_character_comment' character.pk %}"
+>
+  Add Review
+</a>
+{% endblock %}

@@ -1,26 +1,68 @@
-{% extends 'bookreview/base.html' %}
+<!--
+File: tempalte/show_profile.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple template that displays all 
+             information connected to a profile
+-->
 
-{% block content %}
+{% extends 'bookreview/base.html' %} {% block content %}
 
-<h1>{{ profile.username }}</h1>
+<!-- Displaying simple information about a characters user information -->
+<div class="profile-detail-card">
+  <img src="{{ profile.profile_image_url }}" alt="{{ profile.username }}" />
 
-<img src="{{ profile.profile_image_url }}" />
+  <div class="profile-detail-info">
+    <h1>{{ profile.username }}</h1>
 
-<p>{{ profile.bio_text }}</p>
-<p>Joined: {{ profile.join_date }}</p>
+    <p class="profile-bio">{{ profile.bio_text }}</p>
 
-<h2>Comments</h2>
+    <p class="profile-joined">Joined {{ profile.join_date }}</p>
+  </div>
+</div>
 
-{% for comment in profile.get_all_book_comments %}
-    <p>{{ comment.text }}</p>
-{% empty %}
-    <p>No comments yet.</p>
-{% endfor %}
+<!-- Displays all comments related to this profile -->
+<h2 class="section-title">Book Reviews</h2>
 
-{% for comment in profile.get_all_character_comments %}
-    <p>{{ comment.text }}</p>
-{% empty %}
-    <p>No comments yet.</p>
-{% endfor %}
+<div class="profile-comment-list">
+  <!-- We are displaying all comments about books this profile has written -->
+  {% for comment in profile.get_all_book_comments %}
+  <a href="{% url 'show_book' comment.book.pk %}">
+    <div class="profile-comment-card">
+      <h3 class="profile-comment-title">{{ comment.book.name }}</h3>
+
+      <div class="profile-comment-type">Book Review</div>
+
+      <p class="profile-comment-text">{{ comment.text }}</p>
+    </div>
+  </a>
+  <!-- If no comments are found, then dispaly No comments yet -->
+  {% empty %}
+
+  <p class="empty-message">No book reviews yet.</p>
+
+  {% endfor %}
+</div>
+
+<h2 class="section-title">Character Reviews</h2>
+
+<div class="profile-comment-list">
+  <!-- We are displaying all comments about characters this profile has written -->
+  {% for comment in profile.get_all_character_comments %}
+  <a href="{% url 'show_character' comment.character.pk %}">
+    <div class="profile-comment-card">
+      <h3 class="profile-comment-title">{{ comment.character.name }}</h3>
+
+      <div class="profile-comment-type">Character Review</div>
+
+      <p class="profile-comment-text">{{ comment.text }}</p>
+    </div>
+  </a>
+  <!-- If no comments are found, display No comments yet -->
+  {% empty %}
+
+  <p class="empty-message">No character reviews yet.</p>
+
+  {% endfor %}
+</div>
 
 {% endblock %}

@@ -1,13 +1,37 @@
-{% load static %} 
+<!--
+File: tempalte/base.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple base template to display information
+-->
+
+{% load static %}
 
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book Review</title>
-        <link rel="stylesheet" href="{% static 'style-bookreview.css' %}" />
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Review</title>
+    <link rel="stylesheet" href="{% static 'style-bookreview.css' %}" />
+  </head>
+  <body>
+    <nav id="sidebar">
+      <h2>Book Review</h2>
+
+      <ul>
+        <li>
+          <a href="{% url 'show_all_profiles' %}"> Show Profiles </a>
+        </li>
+
+        <li>
+          <a href="{% url 'show_all_books' %}"> Show Books </a>
+        </li>
+
+        <li>
+          <a href="{% url 'show_all_characters' %}"> Show Characters </a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>{% block content %}{% endblock %}</main>
+  </body>
 </html>

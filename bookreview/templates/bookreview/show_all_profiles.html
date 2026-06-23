@@ -1,19 +1,27 @@
-{% extends 'bookreview/base.html' %} 
+<!--
+File: tempalte/show_all_profiles.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple tempalte that dispalys all profiles
+-->
+{% extends 'bookreview/base.html' %} {% block content %}
 
-{% block content %}
+<h1 class="section-title">Profiles</h1>
 
-{% for profile in profiles %}
-    <a href="{% url 'show_profile' profile.pk %}">
-        <div>
-            <h2>{{profile.username}}</h2>
+<div class="profile-grid">
+  <!-- Creating a link card that displays a profiles username, their image, bio, and join_date -->
+  {% for profile in profiles %}
+  <a href="{% url 'show_profile' profile.pk %}" class="profile-card">
+    <img
+      src="{{ profile.profile_image_url }}"
+      alt="{{ profile.username }}"
+      class="profile-avatar"
+    />
 
-            <img src="{{ profile.profile_image_url }}" alt="{{profile.username}}"/>
+    <h3>{{ profile.username }}</h3>
 
-            <p>{{profile.bio_text}}</p>
-            <hr>
-            <p>{{profile.join_date}}</p>
-        </div>
-    </a>
-{% endfor %}
+    <p class="profile-date">Joined {{ profile.join_date }}</p>
+  </a>
+  {% endfor %}
+</div>
 
 {% endblock %}
