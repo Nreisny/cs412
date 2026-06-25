@@ -28,11 +28,22 @@ class BookListView(ListView):
     template_name = "bookreview/show_all_books.html"
     context_object_name = "books"
 
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        context_data["current_path"] = self.request.path
+        return context_data
+
 class BookDetailView(DetailView):
     '''Defines a view that displays a book'''
     model = Book
     template_name = "bookreview/show_book.html"
     context_object_name = "book"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["previous_path"] = "/" + self.kwargs["previous_path"]
+        return context
+
 
 class CharacterListView(ListView):
     '''Defines a view that displays a list of characters'''
@@ -45,6 +56,11 @@ class ChracterDetailView(DetailView):
     model = Character
     template_name = "bookreview/show_character.html"
     context_object_name = "character"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["previous_path"] = "/" + self.kwargs["previous_path"]
+        return context
 
 class CreateCharacterCommentView(CreateView):
     '''Defines a view that displays a form for a creating a comment about a chracter'''

@@ -25,7 +25,7 @@ Description: Simple template that dispalys a books information and comments
 <h2 class="section-title">Characters</h2>
 <div class="character-list">
   {% for character in book.get_all_characters %}
-  <a class="character-card" href="{% url 'show_character' character.pk %}">
+  <a class="character-card" href="{% url 'show_character' character.pk request.path|slice:'1:'%}">
     <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
 
     <div class="character-info">
@@ -62,7 +62,7 @@ Description: Simple template that dispalys a books information and comments
   {% endfor %}
 </div>
 <div class="action-bar">
-  <a href="{% url 'show_all_books' %}" class="action-btn"> Back </a>
+  <a href="{% url 'show_all_books'%}" class="action-btn"> Back </a>
 
   <a href="{% url 'create_book_comment' book.pk %}" class="action-btn">
     Add Review
