@@ -1,20 +1,30 @@
+<!-- Used AI generated content for formating purposes -->
+<!--
+File: tempalte/create_profile_form.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple tempalte to create a profile
+-->
+
 {% extends 'bookreview/base.html' %} {% block content %}
 
 <div class="review-form-wrapper">
   <div class="review-form-card">
     <h1>Create a Profile</h1>
 
+    <!-- We are displaying a form for the user to create an account -->
     <form method="POST">
       {% csrf_token %}
 
       <h2>Account Information</h2>
 
+      <!-- This is the from for creating a user -->
       <table class="styled-form">
         {{ user_form.as_table }}
       </table>
 
       <h2>Profile Information</h2>
 
+      <!-- This a form to create our profile information -->
       <table class="styled-form">
         {{ form.as_table }}
       </table>

@@ -1,9 +1,17 @@
-{% extends 'bookreview/base.html' %} {% block content %}
+<!-- Used AI generated content for formating purposes -->
+<!--
+File: tempalte/login.html
+Author: Nicholas Reis (nreisny@bu.edu) 6/20/26
+Description: Simple tempalte to login
+-->
 
+{% extends 'bookreview/base.html' %} {% block content %}
+<!-- This is our login section -->
 <div class="review-form-wrapper">
   <div class="review-form-card">
     <h1>Login</h1>
 
+    <!-- The form for loging in -->
     <form method="POST">
       {% csrf_token %}
 
@@ -25,6 +33,7 @@
       {% endif %}
     </form>
 
+    <!-- Link to send us to creat acount page -->
     <p style="margin-top: 30px; text-align: center">
       Don't have an account?
       <a href="{% url 'create_profile' %}"> Create one here. </a>

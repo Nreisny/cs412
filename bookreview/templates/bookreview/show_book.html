@@ -26,10 +26,9 @@ Description: Simple template that dispalys a books information and comments
 <div class="character-list">
   {% for character in book.get_all_characters %}
   <a class="character-card" href="{% url 'show_character' character.pk %}">
-    <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
-
     <div class="character-info">
       <h3>{{ character.name }}</h3>
+      <p class="character-rating">★ {{ character.rating|floatformat:1 }}</p>
     </div>
   </a>
   <!-- If there are no characters, displays no characters listed -->

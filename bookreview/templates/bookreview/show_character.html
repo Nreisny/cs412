@@ -10,8 +10,6 @@ Description: Simple tempalte to show all information of a character
 
 <!-- Displaying basic information about the character and their image -->
 <div class="character-detail-card">
-  <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
-
   <div class="character-detail-info">
     <h1>{{ character.name }}</h1>
 
@@ -22,7 +20,9 @@ Description: Simple tempalte to show all information of a character
       </a>
     </p>
 
-    <p class="character-rating">Rating: {{ character.rating|floatformat:1 }}</p>
+    <div class="character-info">
+      <p class="character-rating">★ {{ character.rating|floatformat:1 }}</p>
+    </div>
   </div>
 </div>
 

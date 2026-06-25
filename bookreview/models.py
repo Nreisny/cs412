@@ -52,7 +52,6 @@ class Character(models.Model):
     '''Represents a bookreview character'''
     book = models.ForeignKey("Book", on_delete=models.CASCADE)
     name = models.CharField(max_length=60)
-    character_image_url = models.URLField(blank=True)
     rating = models.FloatField(blank=True)
     numrating = models.IntegerField(blank=True)
 

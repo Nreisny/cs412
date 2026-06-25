@@ -14,16 +14,9 @@ Description: Simple tempalte to display all characters
     href="{% url 'show_character' character.pk %}"
     class="character-preview-card"
   >
-    <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
-
-    <div class="character-preview-info">
+    <div class="character-info">
       <h3>{{ character.name }}</h3>
-
-      <p class="character-book">{{ character.book.name }}</p>
-
-      <p class="character-rating">
-        Rating: {{ character.rating|floatformat:1 }}
-      </p>
+      <p class="character-rating">★ {{ character.rating|floatformat:1 }}</p>
     </div>
   </a>
   {% endfor %}
