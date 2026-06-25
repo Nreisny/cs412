@@ -29,9 +29,9 @@ urlpatterns = [
     path("formdata/", include("formdata.urls")), # Goes to formdata App
     path("restaruant/", include("restaurant.urls")), # Goes to restaurant App
     path("blog/", include("blog.urls")), # Goes to blog App
+    path("bookreview/", include("bookreview.urls")), #Goes to the bookreview App
     path("mini_insta/", include("mini_insta.urls")), # Goes to mini_insta App
     path("dadjokes/", include("dadjokes.url")), # Goes to the dadjokes App
-    path("bookreview/", include("bookreview.urls")), #Goes to the bookreview App
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

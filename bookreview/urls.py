@@ -8,14 +8,14 @@ from .views import *
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path(r"", BookListView.as_view(), name="show_all_books"),
-    path(r"book/<int:pk>/<path:previous_path>/", BookDetailView.as_view(), name="show_book"),
-    path(r"book/<int:pk>/<path:previous_path>/create_comment", CreateBookCommentView.as_view(), name="create_book_comment"),
-    path(r"profile/show_all", ProfileListView.as_view(), name="show_all_profiles"),
-    path(r"profile/<int:pk>/<path:previous_path>", ProfileDetailView.as_view(), name="show_profile"),
-    path(r"character/show_all", CharacterListView.as_view(), name="show_all_characters"),
-    path(r"character/<int:pk>/<path:previous_path>", ChracterDetailView.as_view(), name="show_character"),
-    path(r"character/<int:pk>/<path:previous_path>/create_comment", CreateCharacterCommentView.as_view(), name="create_character_comment"),
+    path("", BookListView.as_view(), name="show_all_books"),
+    path("book/<int:pk>/", BookDetailView.as_view(), name="show_book"),
+    path("book/<int:pk>/create_comment", CreateBookCommentView.as_view(), name="create_book_comment"),
+    path("profile/show_all", ProfileListView.as_view(), name="show_all_profiles"),
+    path("profile/<int:pk>", ProfileDetailView.as_view(), name="show_profile"),
+    path("character/show_all", CharacterListView.as_view(), name="show_all_characters"),
+    path("character/<int:pk>", ChracterDetailView.as_view(), name="show_character"),
+    path("character/<int:pk>/create_comment", CreateCharacterCommentView.as_view(), name="create_character_comment"),
     path("profile", MyProfileDetailView.as_view(), name="my_profile"),
     path("login", auth_views.LoginView.as_view(template_name="bookreview/login.html"), name="login"),
     path("logout", auth_views.LogoutView.as_view(next_page="show_all_books"), name="logout"),

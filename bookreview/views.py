@@ -34,12 +34,6 @@ class ProfileDetailView(DetailView):
     template_name = "bookreview/show_profile.html"
     context_object_name = "profile"
 
-    def get_context_data(self, **kwargs):
-        '''Adding the previous path to the ocntext'''
-        context = super().get_context_data(**kwargs)
-        context["previous_path"] = self.kwargs["previous_path"]
-        return context
-
 class BookListView(ListView):
     '''Defines a view that displays a list of books'''
     model = Book
@@ -51,12 +45,6 @@ class BookDetailView(DetailView):
     model = Book
     template_name = "bookreview/show_book.html"
     context_object_name = "book"
-
-    def get_context_data(self, **kwargs):
-        '''Adding the previous path to the context'''
-        context = super().get_context_data(**kwargs)
-        context["previous_path"] = self.kwargs["previous_path"]
-        return context
 
 class CharacterListView(ListView):
     '''Defines a view that displays a list of characters'''
@@ -70,11 +58,6 @@ class ChracterDetailView(DetailView):
     template_name = "bookreview/show_character.html"
     context_object_name = "character"
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["previous_path"] = self.kwargs["previous_path"]
-        return context
-
 class CreateCharacterCommentView(BookReviewLoginRequiredMixin, CreateView):
     '''Defines a view that displays a form for a creating a comment about a chracter'''
     form_class = CreateCharacterCommentForm
@@ -103,7 +86,7 @@ class CreateCharacterCommentView(BookReviewLoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         '''Sends the user to the character page for the character they wrote the comment for'''
-        return reverse("show_character", kwargs={"pk": self.kwargs["pk"], "previous_path": self.kwargs["previous_path"]})
+        return reverse("show_character", kwargs={"pk": self.kwargs["pk"]})
 
 class CreateBookCommentView(BookReviewLoginRequiredMixin, CreateView):
     '''Defines a view that displays a form for creating a comment about a book'''
@@ -133,7 +116,7 @@ class CreateBookCommentView(BookReviewLoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         '''Sends the user to the book page for the book they wrote the comment for'''
-        return reverse("show_book", kwargs={"pk": self.kwargs["pk"], "previous_path": self.kwargs["previous_path"]})
+        return reverse("show_book", kwargs={"pk": self.kwargs["pk"]})
 
 class CreateProfileView(CreateView):
     """Displays and processes the form used to create a Profile."""

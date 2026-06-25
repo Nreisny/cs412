@@ -17,7 +17,7 @@ Description: Simple tempalte to show all information of a character
 
     <p class="character-book">
       Appears in:
-      <a href="{% url 'show_book' character.book.pk request.path%}">
+      <a href="{% url 'show_book' character.book.pk %}">
         {{ character.book.name }}
       </a>
     </p>
@@ -58,10 +58,8 @@ Description: Simple tempalte to show all information of a character
 </div>
 
 <div class="action-bar">
-  <a href="{{previous_path}}" class="action-btn"> Back </a>
-
   <a
-    href="{% url 'create_character_comment' character.pk request.path%}"
+    href="{% url 'create_character_comment' character.pk %}"
     class="action-btn"
   >
     Add Review

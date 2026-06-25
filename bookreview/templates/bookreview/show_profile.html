@@ -27,7 +27,7 @@ Description: Simple template that displays all
 <div class="profile-comment-list">
   <!-- We are displaying all comments about books this profile has written -->
   {% for comment in profile.get_all_book_comments %}
-  <a href="{% url 'show_book' comment.book.pk request.path %}">
+  <a href="{% url 'show_book' comment.book.pk  %}">
     <div class="profile-comment-card">
       <h3 class="profile-comment-title">{{ comment.book.name }}</h3>
 
@@ -49,7 +49,7 @@ Description: Simple template that displays all
 <div class="profile-comment-list">
   <!-- We are displaying all comments about characters this profile has written -->
   {% for comment in profile.get_all_character_comments %}
-  <a href="{% url 'show_character' comment.character.pk request.path %}">
+  <a href="{% url 'show_character' comment.character.pk  %}">
     <div class="profile-comment-card">
       <h3 class="profile-comment-title">{{ comment.character.name }}</h3>
 

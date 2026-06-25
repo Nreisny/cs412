@@ -11,7 +11,7 @@ Description: Simple tempalte that dispalys all profiles
 <div class="profile-grid">
   <!-- Creating a link card that displays a profiles username, their image, bio, and join_date -->
   {% for profile in profiles %}
-  <a href="{% url 'show_profile' profile.pk %}" class="profile-card">
+  <a href="{% url 'show_profile' profile.pk%}" class="profile-card">
     <img
       src="{{ profile.profile_image_url }}"
       alt="{{ profile.username }}"

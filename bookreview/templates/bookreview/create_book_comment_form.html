@@ -20,10 +20,7 @@ Description: Simple template that displays a
         {{ form.as_table }}
       </table>
       <div class="form-actions">
-        <a
-          href="{% url 'show_book' book.pk request.path%}"
-          class="submit-review-btn"
-        >
+        <a href="{% url 'show_book' book.pk%}" class="submit-review-btn">
           Cancel
         </a>
 
