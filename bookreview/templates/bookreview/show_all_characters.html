@@ -21,7 +21,9 @@ Description: Simple tempalte to display all characters
 
       <p class="character-book">{{ character.book.name }}</p>
 
-      <p class="character-rating">Rating: {{ character.rating }}</p>
+      <p class="character-rating">
+        Rating: {{ character.rating|floatformat:1 }}
+      </p>
     </div>
   </a>
   {% endfor %}

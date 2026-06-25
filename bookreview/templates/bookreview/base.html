@@ -29,6 +29,30 @@ Description: Simple base template to display information
         <li>
           <a href="{% url 'show_all_characters' %}"> Show Characters </a>
         </li>
+        {% if request.user.is_authenticated %}
+
+        <li>
+          <a href="{% url 'my_profile' %}">My Profile</a>
+        </li>
+
+        <li>
+          <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="sidebar-link-btn">Logout</button>
+          </form>
+        </li>
+
+        {% else %}
+
+        <li>
+          <a href="{% url 'login' %}">Login</a>
+        </li>
+
+        <li>
+          <a href="{% url 'create_profile' %}">Create Account</a>
+        </li>
+
+        {% endif %}
       </ul>
     </nav>
 

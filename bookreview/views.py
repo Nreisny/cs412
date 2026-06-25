@@ -5,9 +5,21 @@
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile, Book, Character, BookCommment, CharacterComment
-from .forms import CreateCharacterCommentForm, CreateBookCommentForm
+from .forms import CreateCharacterCommentForm, CreateBookCommentForm, CreateProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
+
+class BookReviewLoginRequiredMixin(LoginRequiredMixin):
+    """Require authentication before accessing a view."""
+
+    def get_login_url(self):
+        return reverse("login")
+
+    def get_logged_in_profile(self):
+        return Profile.objects.get(user=self.request.user)
 
 class ProfileListView(ListView):
     '''Defines a view that displays a list of profiles'''
@@ -22,16 +34,17 @@ class ProfileDetailView(DetailView):
     template_name = "bookreview/show_profile.html"
     context_object_name = "profile"
 
+    def get_context_data(self, **kwargs):
+        '''Adding the previous path to the ocntext'''
+        context = super().get_context_data(**kwargs)
+        context["previous_path"] = self.kwargs["previous_path"]
+        return context
+
 class BookListView(ListView):
     '''Defines a view that displays a list of books'''
     model = Book
     template_name = "bookreview/show_all_books.html"
     context_object_name = "books"
-
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        context_data["current_path"] = self.request.path
-        return context_data
 
 class BookDetailView(DetailView):
     '''Defines a view that displays a book'''
@@ -40,10 +53,10 @@ class BookDetailView(DetailView):
     context_object_name = "book"
 
     def get_context_data(self, **kwargs):
+        '''Adding the previous path to the context'''
         context = super().get_context_data(**kwargs)
-        context["previous_path"] = "/" + self.kwargs["previous_path"]
+        context["previous_path"] = self.kwargs["previous_path"]
         return context
-
 
 class CharacterListView(ListView):
     '''Defines a view that displays a list of characters'''
@@ -59,10 +72,10 @@ class ChracterDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["previous_path"] = "/" + self.kwargs["previous_path"]
+        context["previous_path"] = self.kwargs["previous_path"]
         return context
 
-class CreateCharacterCommentView(CreateView):
+class CreateCharacterCommentView(BookReviewLoginRequiredMixin, CreateView):
     '''Defines a view that displays a form for a creating a comment about a chracter'''
     form_class = CreateCharacterCommentForm
     template_name = "bookreview/create_character_comment_form.html"
@@ -73,6 +86,9 @@ class CreateCharacterCommentView(CreateView):
         character = Character.objects.get(pk=pk)
         form.instance.character = character
 
+        form.instance.profile = self.get_logged_in_profile()
+
+        # Adding the new rating to the characters rating and updating numratings
         character.rating = (((character.rating * character.numrating) + form.instance.rating) / (character.numrating + 1))
         character.numrating += 1
         character.save()
@@ -87,10 +103,9 @@ class CreateCharacterCommentView(CreateView):
 
     def get_success_url(self):
         '''Sends the user to the character page for the character they wrote the comment for'''
-        return reverse("show_character", kwargs={"pk": self.kwargs["pk"]})
-        
+        return reverse("show_character", kwargs={"pk": self.kwargs["pk"], "previous_path": self.kwargs["previous_path"]})
 
-class CreateBookCommentView(CreateView):
+class CreateBookCommentView(BookReviewLoginRequiredMixin, CreateView):
     '''Defines a view that displays a form for creating a comment about a book'''
     form_class = CreateBookCommentForm
     template_name = "bookreview/create_book_comment_form.html"
@@ -101,6 +116,9 @@ class CreateBookCommentView(CreateView):
         book = Book.objects.get(pk=pk)
         form.instance.book = book
 
+        form.instance.profile = self.get_logged_in_profile()
+
+        # Adding the new rating to the books rating and updating numratings
         book.rating = (((book.rating * book.numrating) + form.instance.rating) / (book.numrating + 1))
         book.numrating += 1
         book.save()
@@ -115,6 +133,44 @@ class CreateBookCommentView(CreateView):
 
     def get_success_url(self):
         '''Sends the user to the book page for the book they wrote the comment for'''
-        return reverse("show_book", kwargs={"pk": self.kwargs["pk"]})
-    
+        return reverse("show_book", kwargs={"pk": self.kwargs["pk"], "previous_path": self.kwargs["previous_path"]})
 
+class CreateProfileView(CreateView):
+    """Displays and processes the form used to create a Profile."""
+
+    form_class = CreateProfileForm
+    template_name = "bookreview/create_profile_form.html"
+
+    def get_context_data(self, **kwargs):
+        '''Adding the user creation form into the context'''
+        context = super().get_context_data(**kwargs)
+        context["user_form"] = UserCreationForm()
+        return context
+
+    def form_valid(self, form):
+        '''Validating the form and adding the user to the profile fk'''
+
+        user_form = UserCreationForm(self.request.POST)
+        if not user_form.is_valid():
+            return self.form_invalid(form)
+
+        user = user_form.save()
+        login(self.request, user, backend="django.contrib.auth.backends.ModelBackend")
+        form.instance.user = user
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        '''Sends the user to the profile page'''
+        return reverse("my_profile")
+    
+class MyProfileDetailView(BookReviewLoginRequiredMixin, DetailView):
+    """Display the logged-in user's profile."""
+
+    model = Profile
+    template_name = "bookreview/show_profile.html"
+    context_object_name = "profile"
+
+    def get_object(self):
+        '''Returning the profile of the user logged in'''
+        return self.get_logged_in_profile()

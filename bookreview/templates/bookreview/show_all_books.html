@@ -9,12 +9,12 @@ Description: Simple template that displays all books
 <div class="book-grid">
   <!-- Creating a link card that displays a books image, author, and rating for each book in a given queryset -->
   {% for book in books %}
-  <a href="{% url 'show_book' book.pk request.path|slice:'1:'%}" class="book-card">
+  <a href="{% url 'show_book' book.pk request.path%}" class="book-card">
     <h2>{{ book.name }}</h2>
     <img src="{{ book.book_image_url }}" />
 
     <p class="author">Author: {{ book.author }}</p>
-    <p class="rating">Rating: {{ book.rating }}</p>
+    <p class="rating">Rating: {{ book.rating|floatformat:1 }}</p>
   </a>
   {% endfor %}
 </div>

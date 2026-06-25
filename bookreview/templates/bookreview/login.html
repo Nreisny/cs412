@@ -1,0 +1,35 @@
+{% extends 'bookreview/base.html' %} {% block content %}
+
+<div class="review-form-wrapper">
+  <div class="review-form-card">
+    <h1>Login</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <table class="styled-form">
+        {{ form.as_table }}
+      </table>
+
+      <div class="form-actions">
+        <a href="{% url 'show_all_books' %}" class="submit-review-btn">
+          Cancel
+        </a>
+
+        <button type="submit" class="submit-review-btn">Login</button>
+      </div>
+      {% if request.GET.next %}
+      <input type="hidden" name="next" value="{{ request.GET.next }}" />
+      {% else %}
+      <input type="hidden" name="next" value="{% url 'my_profile' %}" />
+      {% endif %}
+    </form>
+
+    <p style="margin-top: 30px; text-align: center">
+      Don't have an account?
+      <a href="{% url 'create_profile' %}"> Create one here. </a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}

@@ -4,10 +4,13 @@
 #              that is used to map to a database table
 
 from django.db import models
+from django.contrib.auth.models import User
+from django.conf import settings
 
 class Profile(models.Model):
     '''Represents a bookreview user profile'''
     username = models.CharField(max_length=30)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bookreview_profiles", null=True, blank=True)
     profile_image_url = models.URLField(blank=True)
     bio_text = models.TextField(blank=True)
     join_date = models.DateTimeField(auto_now=True)

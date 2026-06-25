@@ -11,11 +11,18 @@ class CreateCharacterCommentForm(forms.ModelForm):
     class Meta:
         '''Associates this form with a model from our database'''
         model = CharacterComment
-        fields = ["profile", "text", "rating"]
+        fields = ["text", "rating"]
 
 class CreateBookCommentForm(forms.ModelForm):
     '''Create a new Book Comment object'''
     class Meta:
         '''Associates this form with a model from our database'''
         model =  BookCommment
-        fields = ["profile", "text", "rating"]
+        fields = ["text", "rating"]
+
+class CreateProfileForm(forms.ModelForm):
+    """Create a new Profile object"""
+
+    class Meta:
+        model = Profile
+        fields = ["username", "profile_image_url", "bio_text"]

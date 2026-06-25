@@ -18,14 +18,17 @@ Description: Simple template that dispalys a books information and comments
 
     <p class="author">Author: {{ book.author }}</p>
 
-    <p class="rating">Rating: {{ book.rating }}</p>
+    <p class="rating">Rating: {{ book.rating|floatformat:1 }}</p>
   </div>
 </div>
 <!-- Displaying all the characters information related to this book -->
 <h2 class="section-title">Characters</h2>
 <div class="character-list">
   {% for character in book.get_all_characters %}
-  <a class="character-card" href="{% url 'show_character' character.pk request.path|slice:'1:'%}">
+  <a
+    class="character-card"
+    href="{% url 'show_character' character.pk request.path%}"
+  >
     <img src="{{ character.character_image_url }}" alt="{{ character.name }}" />
 
     <div class="character-info">
@@ -62,9 +65,12 @@ Description: Simple template that dispalys a books information and comments
   {% endfor %}
 </div>
 <div class="action-bar">
-  <a href="{% url 'show_all_books'%}" class="action-btn"> Back </a>
+  <a href="{{ previous_path }}" class="action-btn"> Back </a>
 
-  <a href="{% url 'create_book_comment' book.pk %}" class="action-btn">
+  <a
+    href="{% url 'create_book_comment' book.pk book.pk previous_path|slice:'1:' %}"
+    class="action-btn"
+  >
     Add Review
   </a>
 </div>

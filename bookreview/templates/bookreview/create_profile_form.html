@@ -1,0 +1,33 @@
+{% extends 'bookreview/base.html' %} {% block content %}
+
+<div class="review-form-wrapper">
+  <div class="review-form-card">
+    <h1>Create a Profile</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <h2>Account Information</h2>
+
+      <table class="styled-form">
+        {{ user_form.as_table }}
+      </table>
+
+      <h2>Profile Information</h2>
+
+      <table class="styled-form">
+        {{ form.as_table }}
+      </table>
+
+      <div class="form-actions">
+        <a href="{% url 'show_all_books' %}" class="submit-review-btn">
+          Cancel
+        </a>
+
+        <button type="submit" class="submit-review-btn">Create Profile</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

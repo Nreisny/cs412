@@ -33,7 +33,7 @@ body {
 }
 
 #sidebar:hover {
-  height: 280px;
+  height: 420px;
 }
 
 #sidebar h2 {
@@ -984,4 +984,45 @@ main {
 
 .profile-joined {
   color: var(--red);
+}
+.sidebar-link-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  padding: 12px 20px;
+}
+.sidebar-link-btn {
+  display: block;
+
+  width: 100%;
+
+  padding: 14px 18px;
+
+  background: none;
+  border: none;
+
+  text-align: left;
+
+  color: var(--charcoal);
+
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: inherit;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.sidebar-link-btn:hover {
+  background-color: var(--red);
+  color: white;
+
+  transform: translateX(6px);
 }
